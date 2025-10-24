@@ -42,6 +42,8 @@ const instanceId = getInstanceID();
 
 export default {
   viewer: {
+    pdfJson: null,
+    showWebViewerComponent: false,
     uiConfiguration: VIEWER_CONFIGURATIONS.DEFAULT,
     initalsOffset: 0,
     isInitialsModeEnabled: false,
@@ -148,13 +150,6 @@ export default {
     pageManipulationOverlayOpenByRightClick: true,
     headers: {
       default: [
-        {
-          type: 'toggleElementButton',
-          dataElement: DataElements.MENU_OVERLAY_BUTTON,
-          element: DataElements.MENU_OVERLAY,
-          img: 'ic-hamburger-menu',
-          title: 'component.menuOverlay',
-        },
         {
           type: 'divider',
           hidden: ['small-mobile'],

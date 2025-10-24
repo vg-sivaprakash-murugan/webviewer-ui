@@ -82,6 +82,11 @@ import PageManipulationFlyout from 'components/ModularComponents/PageManipulatio
 import { VIEWER_CONFIGURATIONS } from 'src/constants/customizationVariables';
 import useWidgetHighlightingSync from 'hooks/useWidgetHighlightingSync';
 import i18next from 'i18next';
+//My code 
+import initialState from 'src/redux/initialState';
+import rawTableData from '../../../assets/extracted.json';
+import WebViewerComponent from '../NgpComponent';
+
 // TODO: Use constants
 const tabletBreakpoint = window.matchMedia('(min-width: 641px) and (max-width: 900px)');
 
@@ -106,6 +111,7 @@ const App = ({ removeEventHandlers }) => {
   const customizableUI = useSelector(selectors.getIsCustomUIEnabled);
   const currentUIConfiguration = useSelector(selectors.getUIConfiguration);
   const isSpreadsheetEditorModeEnabled = currentUIConfiguration === VIEWER_CONFIGURATIONS.SPREADSHEET_EDITOR;
+  const showWebViewerComponent = useSelector(state => state.viewer.showWebViewerComponent);
 
   // These hooks control behaviours regarding the opening and closing of panels and in the case
   // of the redaction hook it creates a reference that tracks the redaction annotations
@@ -122,6 +128,77 @@ const App = ({ removeEventHandlers }) => {
 
 
   useWidgetHighlightingSync();
+
+  const pageNumber = useSelector(selectors.getCurrentPage);
+  const state = {
+    viewer: {
+      ...initialState.viewer,
+      shouldAddA11yContentToDOM: true,
+    },
+  };
+  // useEffect(() => {
+  //   if (initialState?.viewer?.uiConfiguration) {
+  //     store.dispatch({
+  //       type: 'SET_UI_CONFIGURATION',
+  //       payload: initialState.viewer.uiConfiguration,
+  //     });
+  //   }
+  // }, [store, initialState]);
+
+  useEffect(() => {
+    const addCustomButton = () => {
+      const instance = window.instance || window.Core?.instance || null;
+      if (!instance || !instance.UI) {
+        console.warn("WebViewer instance not ready yet");
+        return;
+      }
+
+      const saveButton = {
+        type: 'customButton',
+        img: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path d="M0 0h24v24H0z" fill="none"/>
+                <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14
+                c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3
+                3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/>
+              </svg>`,
+        title: 'Save Annotations',
+        onClick: function () {
+          const { annotationManager } = window.Core;
+          // annotationManager.enableReadOnlyMode();
+          // if (!showWebViewerComponent) {
+          //   // dispatch(actions.setShowWebViewerComponent(true));
+          //   dispatch(actions.closeElements(['TABS']));
+          //   setLocalShow(true);
+          // } else {
+          //   setLocalShow(false);
+          //   // dispatch(actions.setShowWebViewerComponent(false));
+          //   dispatch(actions.openElements(['TABS']));
+          // }
+          const state = store.getState();
+          const current = state.viewer.showWebViewerComponent;
+          store.dispatch(actions.setShowWebViewerComponent(!current));
+        },
+      };
+
+      const topHeader = instance.UI.getModularHeader('default-top-header');
+      if (!topHeader) {
+        console.warn("Top header not found");
+        return;
+      }
+
+      const items = topHeader.getItems();
+      items.unshift(saveButton);
+      topHeader.setItems(items);
+    };
+
+    setTimeout(addCustomButton, 2000);
+  }, []);
+
+  useEffect(() => {
+    if (showWebViewerComponent) dispatch(actions.openElements(['TABS']));
+    else dispatch(actions.closeElements(['TABS']));
+  }, [showWebViewerComponent]);
+
 
   useEffect(() => {
     const initialMode = getHashParameters('initialMode', null);
@@ -234,21 +311,46 @@ const App = ({ removeEventHandlers }) => {
       );
 
     async function loadInitialDocument() {
-      let initialDoc = getHashParameters('d', '');
+      //Handle file upload and api call here
+      const response = await fetch('http://localhost:5000/api/sample/extract', {
+        method: 'GET', // or 'POST' if you need to send file info
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`API Error: ${response.status}`);
+      }
+      let initialDoc = `${window.location.origin}/assets/OQ_Agitator_100.pdf`;
 
       let defaultFile = null;
       if (!initialDoc) {
-        defaultFile = getDefaultFile();
+        // defaultFile = getDefaultFile();
+        defaultFile = `${window.location.origin}/assets/OQ_Agitator_100.pdf`;
       }
 
-      if (defaultFile) {
-        loadDocument(dispatch, null, {
-          filename: defaultFile,
-          isOfficeEditingEnabled: true,
-        });
+      // if (defaultFile) {
+      // loadDocument(dispatch, null, {
+      //   // filename: defaultFile,
+      //   filename:
+      //     isOfficeEditingEnabled: true,
+      // });
+      let fileUrl = `${window.location.origin}/assets/OQ_Agitator_100.pdf`
+      loadDocument(dispatch, fileUrl, {
+        filename: 'OQ_Agitator_100.pdf',
+        isOfficeEditingEnabled: true,
+      });
+      //Based on the API response set this state
+      // const localJson = `${window.location.origin}/assets/extracted.json`;
+      const rawTableDatas = await response.json();
+      dispatch(actions.setPdfJson(rawTableDatas));
+      dispatch(actions.setShowWebViewerComponent(true));
+      // setShowWebViewerComponent(true);
 
-        return;
-      }
+
+      //   return;
+      // }
 
       const state = store.getState();
       const doesAutoLoad = getHashParameters('auto_load', true);
@@ -444,7 +546,7 @@ const App = ({ removeEventHandlers }) => {
       case panelNames.TEXT_EDITING:
         return <TextEditingPanel dataElement={dataElement} />;
       case panelNames.CHANGE_LIST:
-        return <ComparePanel dataElement={dataElement}/>;
+        return <ComparePanel dataElement={dataElement} />;
       case panelNames.STYLE:
         return <LazyLoadWrapper Component={LazyLoadComponents.StylePanel} dataElement={dataElement} />;
       case panelNames.REDACTION:
@@ -496,6 +598,11 @@ const App = ({ removeEventHandlers }) => {
           'is-web-component': window.isApryseWebViewerWebComponent,
         })} dir={direction}
       >
+        <Panel dataElement="TABS" location="left" isCustom={true}>
+          <div style={{ width: '100%', height: '100%' }}>
+            {showWebViewerComponent && <WebViewerComponent />}
+          </div>
+        </Panel>
         <FlyoutContainer />
         <RibbonOverflowFlyout />
         <ViewControlsFlyout />
@@ -512,9 +619,9 @@ const App = ({ removeEventHandlers }) => {
         {customizableUI && <TabsHeader />}
         <TopHeader />
         {isSpreadsheetEditorModeEnabled &&
-          <LazyLoadWrapper Component={LazyLoadComponents.FormulaBar} dataElement={DataElements.FORMULA_BAR}/>}
+          <LazyLoadWrapper Component={LazyLoadComponents.FormulaBar} dataElement={DataElements.FORMULA_BAR} />}
         <div className="content">
-          <LeftHeader/>
+          <LeftHeader />
           {!customizableUI && <LazyLoadWrapper
             Component={LazyLoadComponents.LeftPanel}
             dataElement={DataElements.LEFT_PANEL}
@@ -560,8 +667,8 @@ const App = ({ removeEventHandlers }) => {
               <ComparePanel />
             </RightPanel>
           </MultiViewerWrapper>}
-          <RightHeader/>
-          <BottomHeader/>
+          <RightHeader />
+          <BottomHeader />
           {!isMultiViewerMode && <DocumentContainer />}
         </div>
         <LazyLoadWrapper
@@ -713,7 +820,7 @@ const App = ({ removeEventHandlers }) => {
             <LazyLoadWrapper
               Component={LazyLoadComponents.HeaderFooterControlsOverlay}
               dataElement={DataElements.HEADER_FOOTER_CONTROLS_OVERLAY}
-              onOpenHook={useOnHeaderFooterUpdate}/>
+              onOpenHook={useOnHeaderFooterUpdate} />
             <LazyLoadWrapper
               Component={LazyLoadComponents.HeaderFooterOptionsModal}
               dataElement={DataElements.HEADER_FOOTER_OPTIONS_MODAL}
@@ -734,6 +841,7 @@ const App = ({ removeEventHandlers }) => {
       <FilePickerHandler />
       <CopyTextHandler />
       <FontHandler />
+
     </>
   );
 };

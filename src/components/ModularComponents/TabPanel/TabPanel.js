@@ -15,6 +15,7 @@ import { panelNames, panelData } from 'constants/panel';
 import DataElements from 'constants/dataElement';
 import { getPanelToRender, createCustomElement, getEnabledPanels } from 'helpers/tabPanelHelper';
 import { isMobileSize } from 'helpers/getDeviceSize';
+import WebViewerComponent from 'src/components/NgpComponent';
 
 const removeDuplicates = (array) => [...new Set(array)];
 
@@ -294,14 +295,14 @@ const TabPanel = ({ dataElement: tabPanelDataElement, redactionAnnotationsList }
     }
   }, [headerContainerWidth]);
 
-  useLayoutEffect(() => {
-    handleTabPanelElements();
-    overflowItems.length > 0 && setOverflowFlyout();
-  }, [
-    visiblePanelTabs,
-    overflowItems,
-    headerContainerWidth,
-  ]);
+  // useLayoutEffect(() => {
+  //   handleTabPanelElements();
+  //   overflowItems.length > 0 && setOverflowFlyout();
+  // }, [
+  //   visiblePanelTabs,
+  //   overflowItems,
+  //   headerContainerWidth,
+  // ]);
 
   const renderTabs = () => {
     if (visiblePanelTabs?.length) {
@@ -331,10 +332,23 @@ const TabPanel = ({ dataElement: tabPanelDataElement, redactionAnnotationsList }
     }
   };
 
-  const getActivePanelRender = () => {
-    const activePanel = panelsObject[selectedTab];
-    return activePanel?.render;
-  };
+  const pdfJson = useSelector(selectors.getPdfJson); // or whatever holds your API result
+
+const getActivePanelRender = () => {
+  const activePanel = panelsObject[selectedTab];
+
+  // If data available, show WebViewerComponent instead of other panel content
+  // if (pdfJson && Object.keys(pdfJson).length > 0) {
+  //   return (
+  //     <div className="webviewer-panel-container">
+  //       <WebViewerComponent />
+  //     </div>
+  //   );
+  // }
+
+  return activePanel?.render;
+};
+
 
   const closePanel = () => {
     dispatch(actions.closeElement('tabPanel'));
@@ -375,6 +389,9 @@ const TabPanel = ({ dataElement: tabPanelDataElement, redactionAnnotationsList }
         </>
       )}
     </Measure>
+    {/* <div>
+      <WebViewerComponent></WebViewerComponent>
+    </div> */}
     {getActivePanelRender()}
   </>;
 

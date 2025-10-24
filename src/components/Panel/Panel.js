@@ -15,7 +15,7 @@ import i18next from 'i18next';
 import { isElementOnLeftSide, isElementOnRightSide } from 'src/helpers/rightToLeft';
 
 const DesktopPanel = ({ children }) => {
-  const { dataElement, isCustom, location } = children.props;
+  const { dataElement, isCustom, location, localStyle } = children.props;
   const isMobile = isMobileSize();
 
   const currentWidth = useSelector((state) => selectors.getPanelWidth(state, dataElement));
@@ -30,6 +30,7 @@ const DesktopPanel = ({ children }) => {
   const activeTopHeaders = useSelector(selectors.getActiveTopHeaders);
   const activeBottomHeaders = useSelector(selectors.getActiveBottomHeaders);
   const isMultiTabActive = useSelector(selectors.getIsMultiTab);
+  const showWebViewerComponent = useSelector(selectors.getShowWebViewerComponent);
   const dispatch = useDispatch();
 
   const appDirection = i18next.dir();
@@ -90,6 +91,7 @@ const DesktopPanel = ({ children }) => {
       })}
       data-element={dataElement}
       onDragOver={onDragOver}
+      style={{ marginTop: showWebViewerComponent && dataElement==='TABS' ? '50px' : '0px' }}
     >
       {isCustom && isPanelOnRightSide && !isInDesktopOnlyMode && !isMobile &&
         <ResizeBar minWidth={panelMinWidth} dataElement={`${dataElement}ResizeBar`} onResize={onResize}
@@ -126,7 +128,7 @@ DesktopPanel.propTypes = {
 };
 
 const Panel = (props) => {
-  const { isCustom, dataElement, location } = props;
+  const { isCustom, dataElement, location, style } = props;
   const isMobile = isMobileSize();
 
   const [isOpen] = useSelector((state) => [selectors.isElementOpen(state, dataElement)]);
@@ -161,7 +163,7 @@ const Panel = (props) => {
       );
     }
     return (
-      <DesktopPanel>
+      <DesktopPanel localStyle={style}>
         {children}
       </DesktopPanel>
     );

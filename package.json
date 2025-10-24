@@ -21,6 +21,7 @@
     "lint:styles": "stylelint '**/*.scss'"
   },
   "dependencies": {
+    "@pdftron/webviewer": "^11.8.0",
     "@pdftron/webviewer-react-toolkit": "^0.7.11",
     "autolinker": "^3.11.1",
     "blob-stream": "^0.1.3",
@@ -35,6 +36,7 @@
     "i18next-http-backend": "^1.0.16",
     "quill-mention": "^6.1.1",
     "react": "^17.0.0",
+    "react-beautiful-dnd": "^13.1.1",
     "react-color": "^2.19.3",
     "react-dnd": "^14.0.2",
     "react-dnd-html5-backend": "^14.0.0",

@@ -395,7 +395,10 @@ const DataElements = {
   // Sheets Editor
   FORMULA_BAR: 'formulaBar',
   FORMULA_OVERLAY: 'formulaOverlay',
-  SPREADSHEET_SWITCHER: 'spreadsheetSwitcher'
+  SPREADSHEET_SWITCHER: 'spreadsheetSwitcher',
+
+  //Table Panel Header Elements
+  TABLE_PANEL_HEADER_ELEMENTS: 'TabPanelHeaderElements'
 };
 
 DataElements.TOOLBAR_GROUPS = [

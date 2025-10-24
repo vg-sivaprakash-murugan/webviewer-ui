@@ -1,6 +1,17 @@
 @import '../../constants/styles';
 @import '../../constants/light.scss';
 
+.webviewer-wrapper {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 80px);
+  background: #fff;
+  z-index: 9999;
+}
+
+
 * {
   transition: background-color 0.25s ease;
 }

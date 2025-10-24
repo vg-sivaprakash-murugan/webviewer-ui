@@ -25,6 +25,8 @@ export const {
 } = exposedOfficeEditorSelectors;
 
 // viewer
+export const getPdfJson = (state) => state.viewer.pdfJson;
+export const getShowWebViewerComponent = (state) => state.viewer.showWebViewerComponent;
 export const getModularComponent = (state, dataElement) => state.viewer.modularComponents[dataElement];
 export const getScaleOverlayPosition = (state) => state.viewer.scaleOverlayPosition;
 export const getDefaultPrintMargins = (state) => state.viewer.defaultPrintMargins;

@@ -19,6 +19,16 @@ export default (initialState) => (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case 'SET_PDF_JSON':
+      return {
+        ...state,
+        pdfJson: payload.pdfJson,
+      };
+    case 'SET_SHOW_WEBVIEWER_COMPONENT':
+      return {
+        ...state,
+        showWebViewerComponent: payload.showWebViewerComponent,
+      };
     case 'SET_SCALE_OVERLAY_POSITION':
       return {
         ...state,
@@ -743,7 +753,7 @@ export default (initialState) => (state = initialState, action) => {
     case 'SET_CUSTOM_MULTI_VIEWER_ACCEPTED_FILE_FORMATS':
       return { ...state, customMultiViewerAcceptedFileFormats: payload.customMultiViewerAcceptedFileFormats };
     case 'ADD_CUSTOM_MODAL': {
-      const existingDataElementFiltered = state.customModals.filter(function(modal) {
+      const existingDataElementFiltered = state.customModals.filter(function (modal) {
         return modal.dataElement !== payload.dataElement;
       });
       return {

@@ -8,6 +8,7 @@ import Icon from 'components/Icon';
 import { useTranslation } from 'react-i18next';
 import { panelData, panelNames } from 'constants/panel';
 import Spinner from 'components/Spinner';
+import WebViewerComponent from '../NgpComponent';
 
 const propTypes = {
   layers: PropTypes.arrayOf(PropTypes.object),
@@ -34,8 +35,8 @@ function LayersPanel(props) {
 
   const emptyPanelState = (
     <div className="empty-panel-container">
-      <Icon className="empty-icon" glyph={panelData[panelNames.LAYERS].icon}/>
-      {layersNotFetched ? <Spinner inPanel width={'40px'} height={'40px'}/> :
+      <Icon className="empty-icon" glyph={panelData[panelNames.LAYERS].icon} />
+      {layersNotFetched ? <Spinner inPanel width={'40px'} height={'40px'} /> :
         (<div className="empty-message">
           {t('message.noLayers')}
         </div>)}

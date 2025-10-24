@@ -272,6 +272,14 @@ export const openRedactionPanel = () => (dispatch, getState) => {
   }
 };
 
+export const setPdfJson = (pdfJson) => ({
+  type: 'SET_PDF_JSON',
+  payload: { pdfJson }
+});
+export const setShowWebViewerComponent = (showWebViewerComponent) => ({
+  type: 'SET_SHOW_WEBVIEWER_COMPONENT',
+  payload: { showWebViewerComponent },
+});
 export const setSelectedScale = (selectedScale) => ({
   type: 'SET_SELECTED_SCALE',
   payload: { selectedScale }
