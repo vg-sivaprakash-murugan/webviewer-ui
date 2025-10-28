@@ -1,0 +1,66 @@
+@import '../../constants/styles';
+
+.PortfolioPanel {
+  .bookmark-outline-single-container {
+    .bookmark-outline-label-row {
+      align-items: center;
+
+      &.editing {
+        background-color: var(--faded-component-background);
+        padding: var(--padding-medium) 20px;
+
+        &:focus-visible {
+          outline: var(--focus-visible-outline);
+        }
+      }
+    }
+
+    .portfolio-input-label {
+      font-weight: 600;
+      padding-bottom: var(--padding-small);
+    }
+
+    .portfolio-input {
+      -webkit-font-smoothing: antialiased;
+
+      .ui__input {
+        border-color: var(--border);
+
+        &.ui__input--message-warning {
+          border-color: var(--error-border-color);
+
+          &.ui__input--focused {
+            box-shadow: none;
+          }
+
+          .ui__input__icon svg {
+            fill: var(--error-border-color);
+          }
+        }
+
+        &.ui__input--message-default.ui__input--focused {
+          border-color: var(--outline-color);
+          box-shadow: none;
+        }
+
+        .ui__input__input {
+          padding: var(--padding-small);
+          color: var(--text-color);
+          height: auto;
+          overflow: auto;
+          line-height: normal;
+
+          &::placeholder {
+            color: var(--placeholder-text);
+          }
+        }
+      }
+
+      .ui__input__messageText {
+        color: var(--error-text-color);
+        margin-top: var(--padding-small);
+        font-size: inherit;
+      }
+    }
+  }
+}

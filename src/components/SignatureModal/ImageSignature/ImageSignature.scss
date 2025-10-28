@@ -1,0 +1,118 @@
+@import '../../../constants/styles';
+@import '../../../constants/modal';
+
+.image-signature {
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+
+  @include small-browser-height {
+    height: 192px;
+  }
+
+  @include tiny-browser-height {
+    height: 162px;
+  }
+
+  .image-signature-modal-overlay {
+    position: absolute;
+    width: 100%;
+    height: 480px;
+    background: transparent;
+    z-index: 9999;
+    inset-inline-start: 0;
+    inset-block-start: -100px;
+  }
+
+  &-image-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      max-height: 100%;
+      max-width: 100%;
+      width: auto;
+      height: auto;
+
+      @include ie11 {
+        // using this notation for IE11 purposes
+        flex-grow: 1;
+        flex-basis: 0;
+      }
+    }
+
+    .Button {
+      position: absolute;
+      inset-block-end: 0px;
+      inset-inline-end: 0px;
+    }
+  }
+
+  .mobile {
+    background: var(--signature-draw-background);
+    border: 1px solid var(--modal-stroke-and-border);
+  }
+
+  &-upload-container {
+    position: relative;
+    border-radius: 4px;
+    border: 1px dashed var(--modal-stroke-and-border);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  &-upload-container.dragging {
+    background: var(--image-signature-drop-background);
+    border: 1px dashed var(--image-signature-drop-border);
+  }
+
+  &-dnd,
+  &-separator {
+    color: var(--faded-text);
+  }
+
+  &-upload {
+    input[type='file'] {
+      display: none;
+    }
+
+    .pick-image-button {
+      height: 24px;
+      border-radius: 4px;
+      border: 1px solid var(--primary-button);
+      color: var(--primary-button);
+      display: flex;
+      align-items: center;
+      padding: 0 11px;
+      cursor: pointer;
+
+      &:hover {
+        border: 1px solid var(--primary-button-hover);
+        color: var(--primary-button-hover);
+      }
+
+      &:focus-visible {
+        outline: var(--focus-visible-outline);
+      }
+    }
+  }
+
+  &-separator {
+    margin: 10px;
+  }
+
+  &-error {
+    position: absolute;
+    color: red;
+    inset-block-end: 0px;
+    inset-inline-end: 0px;
+    margin: 0px 5px 5px 0px;
+  }
+}

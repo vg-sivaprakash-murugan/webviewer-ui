@@ -1,0 +1,58 @@
+@import '../../constants/styles';
+@import '../../constants/panel';
+
+.fileAttachmentPanel {
+  @extend %panel;
+  display: block;
+  font-size: var(--font-size-default);
+
+  @include mobile {
+    margin: 16px;
+    width: auto;
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+
+  .section {
+    margin-bottom: 8px;
+    h2.title {
+      font-weight: 700;
+      font-size: 13px;
+      padding-inline-start: var(--fileAttachment-title-padding);
+      margin: 12px 0;
+    }
+    ul.downloadable {
+      padding-inline-start: var(--fileAttachment-list-padding);
+      & > li {
+        width: 100%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        padding: 4px 0;
+      }
+      & > li > button {
+        cursor: pointer;
+        color: var(--secondary-button-text);
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        padding: 4px 0;
+        &:hover {
+          color: var(--secondary-button-hover);
+        }
+      }
+      .embedSpinner {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        .spinner {
+          margin: 0px;
+        }
+      }
+    }
+    ul ul {
+      padding-inline-start: 10px;
+      list-style-type: none;
+    }
+  }
+}

@@ -1,0 +1,25 @@
+.redaction-search-results-page-number {
+  display: flex;
+  align-items: start;
+  padding: 8px 12px 4px;
+
+  .redaction-search-results-page-number-checkbox {
+    position: absolute;
+    inset-inline-start: 24px;
+  }
+
+  .collapsible-page-group-header {
+    button {
+      font-size: 13px;
+      font-weight: normal;
+      color: var(--faded-text);
+      margin: 0 0 0 32px;
+      width: calc(100% - 32px);
+    }
+  }
+
+  .redaction-search-results {
+    padding: 0;
+    margin: 0;
+  }
+}

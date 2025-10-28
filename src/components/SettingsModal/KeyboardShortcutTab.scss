@@ -1,0 +1,71 @@
+@import '../../constants/styles';
+
+.shortcut-table-header {
+  border: 1px var(--gray-4) solid;
+  border-bottom: 0px;
+  padding: 12px 16px;
+  display: flex;
+  font-weight: bold;
+  position: relative;
+
+  .shortcut-table-header-command {
+    width: 220px;
+
+    @include mobile {
+      width: 180px;
+    }
+  }
+
+  .shortcut-table-header-action {
+    position: absolute;
+    inset-inline-end: 16px;
+  }
+}
+
+.shortcut-table-content {
+  border: 1px var(--gray-4) solid;
+  padding: 0px 16px;
+  display: flex;
+  flex-direction: column;
+
+  .shortcut-table-item {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    position: relative;
+
+    .shortcut-table-item-command {
+      color: var(--gray-7);
+      width: 220px;
+
+      span:not(:last-child) {
+        margin-inline-end: 8px;
+      }
+    }
+
+    .shortcut-table-item-description {
+      width: 380px;
+    }
+
+    button {
+      position: absolute;
+      inset-inline-end: 0px;
+      height: 32px;
+      width: 32px;
+      .Icon {
+        height: 20px;
+        width: 20px;
+      }
+    }
+
+    @include mobile {
+      .shortcut-table-item-command {
+        width: 180px;
+      }
+
+      .shortcut-table-item-description {
+        width: 340px;
+      }
+    }
+  }
+}

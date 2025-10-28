@@ -1,0 +1,420 @@
+@import '../../constants/styles';
+@import '../../constants/modal';
+@import '../../constants/popup.scss';
+
+.DocumentCropPopupContainer {
+  @extend %popup;
+  border-radius: var(--border-radius);
+  box-shadow: 0 0 3px 0 var(--document-box-shadow);
+  background: var(--component-background);
+  inset-block-start: 0;
+  z-index: max($modal-z-index, $popup-z-index);
+
+  .DocumentCropPopup {
+    width: 250px;
+
+    .document-crop-section {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+
+      @include mobile {
+        padding: 0px 16px 16px 16px;
+      }
+
+      .ui__choice {
+        margin: 0;
+        padding-bottom: 12px;
+      }
+    }
+
+    .multi-page-crop-wrapper {
+      display: flex;
+      column-gap: 4px;
+
+      .multi-page-crop-example {
+        color: var(--faded-text);
+      }
+
+      .ui__choice {
+        padding-bottom: 0;
+      }
+    }
+
+    .document-crop-page-input-container {
+      margin-top: 12px;
+      margin-inline-start: 23px;
+      height: 32px;
+      display: flex;
+
+      .PageNumberInput {
+        width: 100%;
+      }
+    }
+
+    .page-number-input {
+      width: 100%;
+    }
+
+    .extra-space-section {
+      height: var(--padding);
+    }
+
+    .menu-title {
+      padding-bottom: 16px;
+      font-size: var(--font-size-default);
+      margin: 0;
+    }
+
+    .collapsible-page-group-header > button {
+      font-weight: bold;
+      margin: 0;
+
+      @include mobile {
+        padding: 16px 16px;
+      }
+    }
+
+    .crop-inactive > .collapsible-page-group-header > button {
+      color: var(--gray-6);
+      pointer-events: none;
+
+      .Icon {
+        opacity: 0.5;
+      }
+    }
+
+    .menu-items {
+      padding: 6px 4px;
+    }
+
+    .Icon {
+      height: 16px;
+      width: 16px;
+    }
+
+    .divider {
+      border-top: 1px solid var(--divider);
+      width: 100%;
+    }
+
+    .buttons {
+      padding: 12px;
+      text-align: end;
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      box-sizing: border-box;
+      height: 56px;
+    }
+
+    .Button {
+      @include mobile {
+        height: 32px;
+        margin: 0;
+        font-size: 13px;
+      }
+
+      &.save-button {
+        color: var(--primary-button-text);
+        padding: 6px 16px;
+        background: var(--primary-button);
+        border-radius: 4px;
+        border: 0;
+        height: 32px;
+        width: fit-content;
+        cursor: pointer;
+
+        &:hover:not(:disabled) {
+          @extend %default-button-hover;
+          background-color: var(--primary-button-hover);
+        }
+
+        &:disabled {
+          @extend %default-button-disabled;
+          cursor: auto;
+          border: 0;
+
+          span {
+            color: var(--primary-button-text);
+          }
+        }
+      }
+
+      &.cancel-button {
+        cursor: pointer;
+        background: none;
+        border: 0;
+        color: var(--secondary-button-text);
+        padding: 6px 16px;
+        margin-inline-end: 4px;
+        height: 32px;
+        width: fit-content;
+
+        @include mobile {
+          margin-inline-end: 0;
+          margin-inline-start: 8px;
+        }
+
+        &:hover {
+          @extend %secondary-button-hover;
+          background-color: transparent;
+          box-shadow: none;
+        }
+
+        &:focus {
+          outline: none;
+        }
+
+        &:disabled {
+          opacity: 0.5;
+          cursor: auto;
+          color: var(--secondary-button-text);
+        }
+      }
+    }
+  }
+
+  .crop-dimensions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    .crop-dimensions-input-container {
+      display: flex;
+      flex-wrap: wrap;
+      column-gap: 12px;
+      padding-top: 16px;
+      row-gap: 8px;
+
+      @include mobile {
+        padding-top: 0;
+        flex: 1 1 100%;
+        /* Full width on mobile */
+      }
+    }
+
+    .crop-dimensions-input {
+      display: flex;
+      align-items: center;
+      flex: 1 1;
+
+      @include mobile {
+        flex: 1 1 calc(50% - 6px);
+        /* 50% width minus half of the column-gap */
+        display: flex;
+        align-items: center;
+        font-size: 13px;
+
+        input {
+          font-size: 13px;
+        }
+      }
+
+      .dimensions-settings-title {
+        width: 18px;
+        height: 18px;
+        text-align: center;
+      }
+
+      .input-field-container {
+        display: flex;
+        align-items: center;
+        border: 1px solid var(--border);
+        background: var(--component-background);
+        color: var(--text-color);
+        border-radius: var(--border-radius);
+        width: 100%;
+        min-width: 64px;
+        height: 32px;
+        padding: 1px 2px;
+        margin-inline-start: var(--padding-small);
+
+        ::placeholder {
+          color: var(--text-color);
+        }
+
+        &:focus-within {
+          border-color: var(--focus-border);
+        }
+      }
+
+      .dimension-input-field {
+        border-inline-start: 0;
+        border-inline-end: 0;
+        margin-inline-end: 0;
+        display: flex;
+        align-items: center;
+        border: 1px solid var(--border);
+        background: var(--component-background);
+        color: var(--text-color);
+        border-radius: var(--border-radius);
+        width: 100%;
+        min-width: 64px;
+        height: 32px;
+        padding: 1px 2px;
+        margin-inline-start: var(--padding-small);
+        padding-inline-start: 8px;
+        text-align: start;
+
+        ::placeholder {
+          color: var(--text-color);
+        }
+
+        &:focus-within {
+          border-color: var(--focus-border);
+        }
+      }
+
+      .dimension-input-unit {
+        color: var(--text-color);
+      }
+
+      .Icon {
+        margin: 4px;
+      }
+
+      input {
+        border: 0;
+      }
+
+      /* Dont show spin buttons */
+      /* Chrome, Safari, Edge, Opera */
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      /* Firefox */
+      input[type='number'] {
+        -moz-appearance: textfield;
+      }
+    }
+
+    .crop-dimensions-settings {
+      padding-top: 8px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      font-size: var(--font-size-default);
+
+      .dimensions-settings-title-container {
+        display: flex;
+      }
+
+      .dimensions-settings-title {
+        margin-inline-end: var(--padding-small);
+        font-weight: 600;
+
+        @include mobile {
+          font-size: 13px;
+        }
+      }
+
+      div {
+        &.Dropdown {
+          width: 100% !important;
+          height: 32px;
+          text-align: start;
+        }
+      }
+
+      .Dropdown__items {
+        width: 100% !important;
+        z-index: max($modal-z-index, $popup-z-index);
+      }
+
+      .Dropdown__wrapper {
+        width: 100%;
+      }
+    }
+  }
+
+  @include mobile {
+    width: 100%;
+    justify-content: start;
+    position: static;
+
+    .document-crop-mobile-section {
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 0;
+    }
+
+    .DocumentCropPopup {
+      width: 100%;
+    }
+
+    .document-crop-mobile-container {
+      .Dropdown {
+        height: 32px;
+        min-width: 150px;
+        width: 100% !important;
+
+        .arrow {
+          flex: 0 1 auto;
+        }
+
+        .picked-option .picked-option-text {
+          width: 150px;
+          text-align: start;
+          font-size: 13px;
+        }
+      }
+
+      .Dropdown__items {
+        inset-block-start: -52px;
+        z-index: max($modal-z-index, $popup-z-index);
+        width: 100%;
+      }
+
+      .wrapper {
+        z-index: max($modal-z-index, $popup-z-index) - 1;
+      }
+
+      .save-button {
+        margin-inline-start: 6px;
+        min-width: 75px;
+      }
+    }
+
+    .cancel-button {
+      padding: 0;
+
+      .Icon {
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    .document-crop-page-input-container {
+      margin-top: 0;
+      margin-inline-start: 6px;
+      display: flex;
+
+      button {
+        height: 32px;
+      }
+    }
+
+    .page-number-input {
+      width: 100%;
+      min-width: 150px;
+    }
+
+    .page-number-error {
+      color: var(--color-message-error);
+      margin-top: 4px;
+      margin-inline-start: auto;
+    }
+
+    @media (max-width: 430px) {
+      .document-crop-page-input-container {
+        margin-top: 12px;
+        margin-inline-start: 0;
+      }
+    }
+  }
+}

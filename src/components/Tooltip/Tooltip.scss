@@ -1,0 +1,120 @@
+@import '../../constants/styles';
+
+%tooltip {
+  position: absolute;
+  z-index: $modal-z-index + 20; // should be higher than Modals
+  background: #222;
+  font-size: 12px; // intended
+  padding: 6px 8px;
+  border-radius: 3px;
+  transition: opacity 0.3s ease-out;
+  backface-visibility: hidden;
+}
+
+%tooltip__arrow {
+  content: '';
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.tooltip--top {
+  @extend %tooltip;
+  margin-top: -10px;
+
+  .tooltip__content::before {
+    @extend %tooltip__arrow;
+    inset-block-end: -6px;
+    inset-inline-start: 50%;
+    margin-inline-start: -8px;
+    border-inline-start: 8px solid transparent;
+    border-inline-end: 8px solid transparent;
+    border-top: 6px solid #222;
+  }
+}
+
+.tooltip--topLeft {
+  @extend %tooltip;
+  margin-top: -10px;
+
+  .tooltip__content::before {
+    @extend %tooltip__arrow;
+    inset-block-end: -5px;
+    margin-inline-start: -7px;
+    border-inline-start: 8px solid transparent;
+    border-inline-end: 8px solid transparent;
+    border-top: 6px solid #222;
+  }
+}
+
+.tooltip--bottom {
+  @extend %tooltip;
+  margin-top: 10px;
+
+  .tooltip__content::before {
+    @extend %tooltip__arrow;
+    inset-block-start: -6px;
+    inset-inline-start: 50%;
+    margin-inline-start: -8px;
+    border-inline-start: 8px solid transparent;
+    border-inline-end: 8px solid transparent;
+    border-bottom: 6px solid #222;
+  }
+}
+
+.tooltip--bottomLeft {
+  @extend %tooltip;
+  margin-top: 10px;
+
+  .tooltip__content::before {
+    @extend %tooltip__arrow;
+    inset-block-start: -5px;
+    margin-inline-start: -7px;
+    border-inline-start: 8px solid transparent;
+    border-inline-end: 8px solid transparent;
+    border-bottom: 6px solid #222;
+  }
+}
+
+.tooltip--left {
+  @extend %tooltip;
+  margin-inline-start: -10px;
+  white-space: nowrap;
+
+  .tooltip__content::before {
+    @extend %tooltip__arrow;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-inline-start: 6px solid #222;
+    inset-inline-end: -6px;
+    inset-block-start: 50%;
+    margin-top: -6px;
+  }
+}
+
+.tooltip--right {
+  @extend %tooltip;
+  margin-inline-start: 10px;
+  white-space: nowrap;
+
+  .tooltip__content::before {
+    @extend %tooltip__arrow;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-inline-end: 6px solid #222;
+    inset-inline-start: -6px;
+    inset-block-start: 50%;
+    margin-top: -6px;
+  }
+}
+
+.tooltip__shortcut {
+  margin-inline-start: 3px;
+  opacity: 0.5;
+}
+
+.tooltip__content {
+  background: #222;
+  color: #fff;
+  font-size: 12px; // intended
+}

@@ -1,0 +1,91 @@
+@import '../../constants/styles';
+
+.Thumbnail {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+
+  &.active {
+    .container {
+      .page-image {
+        border: 2px solid var(--focus-border);
+        box-shadow: none;
+        // so that thumbnail does not resize when putting a border on max-width max height canvas
+        box-sizing: content-box;
+      }
+    }
+  }
+
+  .container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // margin: 13px 10px 5px 10px;
+
+    cursor: pointer;
+
+    .page-image {
+      box-shadow: 0px 0px 3px 0px var(--box-shadow);
+    }
+
+    .annotation-image,
+    .page-image {
+      position: absolute;
+      inset-inline-start: 50%;
+      inset-block-start: 50%;
+      transform: translate(-50%, -50%);
+
+      &.right-to-left {
+        transform: translate(-15%, -50%);
+        inset-inline-start: 0;
+      }
+    }
+
+    .checkbox {
+      position: absolute;
+      border-radius: 4px;
+      z-index: 4;
+    }
+
+    .default {
+      inset-block-start: 3%;
+      inset-inline-end: 15%;
+    }
+
+    .rotated {
+      inset-block-start: 15%;
+      inset-inline-end: 3%;
+    }
+  }
+
+  .page-label {
+    margin-top: 11px;
+  }
+
+  &.selected {
+    $selected-icon-size: 16px;
+
+    .container {
+      .thumbnail::before {
+        color: white;
+        background: var(--focus-border);
+        width: $selected-icon-size;
+        height: $selected-icon-size;
+        position: absolute;
+        z-index: 10;
+      }
+
+      canvas {
+        background: rgba(255, 255, 255, 0.6);
+      }
+    }
+  }
+
+  &.active .page-label {
+    color: var(--focus-border) !important;
+  }
+}

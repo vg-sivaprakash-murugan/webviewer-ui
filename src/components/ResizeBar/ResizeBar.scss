@@ -1,0 +1,15 @@
+.resize-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: col-resize;
+  width: 14px;
+  background-color: var(--panel-background);
+  border-inline-end: 1px solid var(--lighter-border);
+  border-inline-start: 1px solid var(--lighter-border);
+  z-index: 65;
+
+  &[data-element='stylePanelResizeBar'] {
+    border-color: var(--lighter-border);
+  }
+}

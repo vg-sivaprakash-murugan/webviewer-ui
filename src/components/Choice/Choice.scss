@@ -1,0 +1,56 @@
+.ui__choice__input__icon {
+  inset-block-start: -6px !important;
+}
+
+.ui__icon {
+  align-items: baseline !important;
+}
+
+.ui__choice {
+  align-items: center;
+}
+
+.ui__choice__label {
+  font-size: 13px !important;
+}
+
+.ui__choice__input--switch {
+  .ui__choice__input__switch {
+    height: 14px !important;
+    border-radius: 24px !important;
+    background-color: var(--input-switch-default-color) !important;
+    border: none !important;
+
+    &.ui__choice__input__switch--disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    &.ui__choice__input__switch--checked {
+      background-color: var(--checked-option) !important;
+
+      .ui__choice__input__toggle {
+        inset-inline-start: 12px !important;
+      }
+    }
+
+    &--focus {
+      outline: var(--focus-visible-outline);
+    }
+
+    .ui__choice__input__toggle {
+      height: 10px !important;
+      width: 10px !important;
+      background-color: var(--gray-0) !important;
+      inset-inline-start: 2px !important;
+    }
+  }
+
+  input:disabled {
+    cursor: not-allowed !important;
+  }
+}
+
+.ui__choice__input__check--focus {
+  outline: var(--focus-visible-outline);
+}

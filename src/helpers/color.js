@@ -1,0 +1,56 @@
+export const rgbaToHex = (r, g, b, a = 1) => {
+  r = r.toString(16);
+  g = g.toString(16);
+  b = b.toString(16);
+  a = Math.round(a * 255).toString(16);
+
+  if (r.length === 1) {
+    r = `0${r}`;
+  }
+  if (g.length === 1) {
+    g = `0${g}`;
+  }
+  if (b.length === 1) {
+    b = `0${b}`;
+  }
+  if (a.length === 1) {
+    a = `0${a}`;
+  }
+
+  return `#${r}${g}${b}${a}`;
+};
+
+export function hexToRGBA(hexString) {
+  let a = 1;
+  if (hexString.length === 9) {
+    a = (parseInt(hexString.slice(7, 9), 16) / 255).toFixed(2);
+  } else if (hexString === 'transparent') {
+    return { r: 0, g: 0, b: 0, a: 0 };
+  }
+  const r = parseInt(hexString.slice(1, 3), 16);
+  const g = parseInt(hexString.slice(3, 5), 16);
+  const b = parseInt(hexString.slice(5, 7), 16);
+  return { r, g, b, a };
+}
+
+export const getHexToRgbaString = (hexString) => {
+  const { r, g, b, a } = hexToRGBA(hexString);
+
+  return `rgba(${r}, ${g}, ${b}, ${a})`;
+};
+
+export const isDarkColorHex = (hexString) => {
+  const R = parseInt(hexString.substring(1, 3), 16);
+  const G = parseInt(hexString.substring(3, 5), 16);
+  const B = parseInt(hexString.substring(5, 7), 16);
+
+  return R < 40 && G < 40 && B < 40;
+};
+
+export const isLightColorHex = (hexString) => {
+  const R = parseInt(hexString.substring(1, 3), 16);
+  const G = parseInt(hexString.substring(3, 5), 16);
+  const B = parseInt(hexString.substring(5, 7), 16);
+
+  return R > 215 && G > 215 && B > 215;
+};

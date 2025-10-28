@@ -1,0 +1,27 @@
+@import '../../../constants/styles';
+
+.CellBorderStyleDropdown {
+  &.flyout-item {
+    padding: 4px 8px;
+
+    .Dropdown__items {
+      inset-block-start: 38px !important;
+      inset-inline-end: 8px;
+    }
+  }
+
+  .Dropdown__items {
+    .Dropdown__item {
+      padding-inline-end: 8px;
+      padding-inline-start: 8px;
+    }
+  }
+
+  .cellBorderStyleDropdownItem {
+    overflow: hidden;
+
+    .cellBorderStyle-image {
+      width: 232px;
+    }
+  }
+}

@@ -1,0 +1,70 @@
+@import '../../constants/styles';
+@import '../../constants/overlay';
+
+.MeasurementOverlay {
+  @extend %overlay;
+  flex-direction: column;
+  inset-block-end: 60px;
+  inset-inline-end: 14px;
+  font-size: 16px;
+  min-width: 215px;
+  padding: 6px;
+
+  @include mobile {
+    inset-block-end: 8px;
+    inset-inline-end: 8px;
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  & > * {
+    margin: 6px;
+  }
+
+  &.transparent {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
+.measurement__value {
+  display: flex;
+  flex-direction: row;
+
+  .distance-show {
+    margin-inline-start: 3px;
+    cursor: pointer;
+  }
+}
+
+.measurement__title {
+  .measurement__icon {
+    margin-inline-end: 5px;
+  }
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.measurement__deltas {
+  display: flex;
+  justify-content: space-between;
+}
+
+.lineMeasurementInput {
+  width: 50px;
+  margin-inline-start: 4px;
+}
+
+.length_input {
+  margin-bottom: 3px;
+}
+
+.angle_input {
+  margin-top: 3px;
+
+  .lineMeasurementInput {
+    width: 65px;
+  }
+}

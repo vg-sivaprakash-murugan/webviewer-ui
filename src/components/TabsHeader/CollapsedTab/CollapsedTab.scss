@@ -1,0 +1,63 @@
+.draggable-collapsed-tab {
+  height: 32px;
+  width: 100%;
+
+  &:hover {
+    background-color: var(--multi-tab-flyout-hover);
+    color: var(--multi-tab-flyout-hover-text);
+
+    .Icon {
+      color: var(--multi-tab-flyout-hover-text);
+    }
+  }
+}
+
+.CollapsedTab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-height: 32px;
+  width: 100%;
+  min-width: 180px;
+  cursor: pointer;
+
+  .file-text {
+    max-width: calc(100% - 30px);
+    padding-inline-start: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    p {
+      font-size: var(--font-size-default);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &.disabled {
+      user-select: none;
+      cursor: wait;
+    }
+  }
+
+  .Button {
+    height: 24px;
+    width: 24px;
+    margin-inline-end: 8px;
+
+    &.hidden-button {
+      display: none;
+    }
+
+    .Icon {
+      margin: 0;
+    }
+
+    &:hover {
+      .Icon {
+        color: var(--icon-color);
+      }
+    }
+  }
+}

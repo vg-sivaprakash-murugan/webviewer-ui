@@ -1,0 +1,185 @@
+@import '../../constants/panel';
+
+.notes-panel-container {
+  &.office-editor {
+    height: 100%;
+  }
+
+  z-index: 65;
+
+  @include mobile {
+    z-index: 95;
+  }
+
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  overflow-y: visible;
+
+  @include tablet {
+    border-inline-start: 1px solid var(--side-panel-border);
+  }
+
+  @include mobile {
+    inset-block-start: 0;
+    inset-inline-end: 0;
+    height: 100%;
+    width: 100%;
+  }
+
+  .NotesPanel {
+    width: 100%;
+    padding-inline-start: 16px;
+    padding-bottom: 0px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    .close-container {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      @include mobile {
+        height: 28px;
+        padding-inline-end: 16px;
+        margin-bottom: 8px;
+      }
+
+      .close-icon-container {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        .close-icon {
+          width: 24px;
+          height: 24px;
+        }
+      }
+    }
+
+    .multi-select-place-holder {
+      height: 72px;
+    }
+
+    .preview-all-changes {
+      height: 57px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      margin-inline-end: 16px;
+
+      .divider {
+        height: 1px;
+        width: 100%;
+        background: var(--divider);
+        position: absolute;
+        inset-block-start: 0px;
+      }
+    }
+
+    .reply-area-container .reply-button {
+      @include ie11 {
+        // For ie11 only
+        width: 28px;
+      }
+    }
+
+    padding-top: 16px;
+
+    @include mobile {
+      width: 100%;
+      min-width: 100%;
+      padding-top: 0px;
+
+      .normal-notes-container {
+        padding-bottom: 16px;
+      }
+    }
+
+    .no-annotations {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .msg {
+        @include tablet-and-desktop {
+          line-height: 15px;
+          width: 146px;
+        }
+
+        text-align: center;
+      }
+
+      .empty-icon {
+        width: 65px;
+        height: 83px;
+
+        svg {
+          width: 65px;
+          height: 83px;
+        }
+
+        * {
+          fill: var(--gray-6);
+          color: var(--gray-6);
+        }
+      }
+    }
+
+    .virtualized-notes-container,
+    .normal-notes-container {
+      margin-top: 10px;
+      flex: 1;
+      padding-inline-end: 18px;
+    }
+
+    .virtualized-notes-container {
+      overflow: hidden;
+    }
+
+    .normal-notes-container {
+      overflow: auto;
+      overflow: overlay;
+    }
+
+    .note-wrapper:first-child {
+      .ListSeparator {
+        margin-top: 0px;
+        word-break: break-word;
+      }
+    }
+
+    .no-results {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-inline-end: 18px;
+
+      .msg {
+        @include tablet-and-desktop {
+          line-height: 15px;
+          width: 92px;
+        }
+
+        text-align: center;
+      }
+
+      .empty-icon {
+        width: 65px;
+        height: 83px;
+
+        svg {
+          width: 65px;
+          height: 83px;
+        }
+
+        * {
+          fill: var(--border);
+          color: var(--border);
+        }
+      }
+    }
+  }
+}

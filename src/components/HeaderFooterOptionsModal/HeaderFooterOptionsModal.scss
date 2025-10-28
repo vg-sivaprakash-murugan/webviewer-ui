@@ -1,0 +1,17 @@
+@import '../../constants/officeEditor.scss';
+
+.HeaderFooterOptionsModal {
+  @include oe-modal;
+
+  .margin-unit-dropdown.Dropdown__wrapper {
+    width: calc(50% - 8px);
+
+    .Dropdown__items {
+      width: 100%;
+    }
+  }
+
+  .modal-container .modal-body {
+    flex-direction: column;
+  }
+}

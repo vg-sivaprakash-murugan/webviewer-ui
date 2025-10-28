@@ -1,0 +1,142 @@
+@import '../../../constants/styles';
+
+.tabPanelContainer {
+  @include mobile {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    // Must equal 30 for the -30 panel offset. 16 in modal wrapper
+    padding-bottom: 14px;
+  }
+}
+
+.TabPanelHeader {
+  margin: 0 0 16px 0;
+
+  .TabPanelHeaderElements {
+    display: flex;
+    flex: 1;
+    border-radius: 4px;
+
+    .Button {
+      flex-grow: 1;
+      height: 28px;
+      min-width: min-content;
+      border: 1px solid var(--border);
+      margin-inline-start: -1px;
+      border-radius: 0px;
+      padding: 0 6px;
+      gap: 4px;
+
+      &:first-child {
+        border-bottom-left-radius: 4px;
+        border-top-left-radius: 4px;
+      }
+
+      &:last-child,
+      &.lastButton {
+        border-bottom-right-radius: 4px;
+        border-top-right-radius: 4px;
+        border-inline-end: 1px solid var(--border);
+      }
+
+      &:hover {
+        border: 1px solid var(--blue-6);
+        background: var(--faded-component-background);
+        z-index: 1;
+        box-shadow: none;
+      }
+
+      &.active,
+      &:hover.active {
+        border: 1px solid var(--tab-color-selected);
+        background: var(--tab-color-selected) !important;
+        z-index: 1;
+        box-shadow: none;
+        cursor: default;
+
+        .Icon,
+        .Icon svg path:not([class='no-fill']),
+        &[aria-label='Layers'] .Icon svg path {
+          color: var(--tab-text-color-selected);
+          fill: var(--tab-text-color-selected);
+        }
+      }
+
+      .Icon {
+        width: 19px;
+        height: 19px;
+        min-width: 19px;
+        min-height: 19px;
+      }
+
+      span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      &.tabPanelButton {
+        // icon only
+        &.hasIcon {
+          min-width: 52px;
+        }
+
+        // label only
+        &.hasLabel {
+          min-width: 77px;
+        }
+
+        // icon and label
+        &.hasIcon.hasLabel {
+          min-width: 98px;
+        }
+
+        &[aria-label='Layers']:not(.active) .Icon {
+          svg path {
+            fill: var(--icon-color);
+          }
+        }
+      }
+    }
+
+    .moreButton {
+      padding: 0;
+      max-width: 48px;
+      min-width: 48px;
+      border-inline-start: none;
+
+      &.hidden {
+        display: none;
+      }
+
+      .ToggleElementButton {
+        display: flex;
+        width: 100%;
+
+        .Button {
+          border-bottom-left-radius: 0px;
+          border-top-left-radius: 0px;
+        }
+      }
+    }
+  }
+
+  @include mobile {
+    margin: 0px 16px;
+  }
+}
+
+.tabPanelTitleContainer {
+  display: none;
+  @include mobile {
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 0px 16px 8px 16px;
+
+    .tabPanelCloseButton {
+      align-self: end;
+      z-index: 3;
+    }
+  }
+}

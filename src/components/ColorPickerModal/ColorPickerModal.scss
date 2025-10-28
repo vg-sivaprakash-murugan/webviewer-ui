@@ -1,0 +1,157 @@
+@import '../../constants/styles';
+@import '../../constants/modal';
+
+.ColorPickerModal {
+  @extend %modal;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: var(--component-background);
+    padding: 15px 16px;
+    border-radius: 4px;
+    width: 250px;
+    overflow-y: unset;
+
+    @include mobile {
+      width: 100%;
+      padding-top: 24px;
+      padding-bottom: 16px;
+      padding-inline-start: 24px;
+      padding-inline-end: 24px;
+    }
+
+    // overwrite color picker existing (inline) style
+    .sketch-picker {
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      width: 220px !important;
+      padding: 0px !important;
+      background: var(--component-background) !important;
+
+      > div {
+        border-radius: 2px !important;
+      }
+
+      .saturation-white {
+        // Make the color picker dot a little bit bigger
+        > div > div {
+          width: 12px !important;
+          height: 12px !important;
+          transform: translateX(-6px) translateY(-6px) !important;
+        }
+      }
+
+      .flexbox-fix:nth-child(2) {
+        span {
+          color: var(--text-color) !important;
+          cursor: default !important;
+        }
+
+        // style for hue selector
+        > div:nth-child(1) {
+          border-radius: 2px;
+
+          > div {
+            margin-top: 6px;
+            cursor: ew-resize !important;
+            overflow: visible !important;
+          }
+        }
+
+        .hue-horizontal {
+          width: 97%;
+          border-radius: 2px;
+
+          div div {
+            transform: translateX(-7px) translateY(-3px) !important;
+            height: 14px !important;
+            width: 14px !important;
+            border-radius: 14px !important;
+            border: 1px solid var(--gray-6) !important;
+          }
+        }
+
+        // style for color preview
+        > div:nth-child(2) {
+          height: 24px !important;
+          border-radius: 12px !important;
+
+          > div {
+            border-radius: 12px !important;
+          }
+        }
+      }
+
+      .flexbox-fix:nth-child(3) {
+        // input boxes
+        input {
+          width: 100% !important;
+          text-align: center;
+          border-radius: 2px;
+        }
+
+        // style for input box label
+        label {
+          color: var(--text-color) !important;
+        }
+      }
+    }
+
+    .buttons {
+      width: 220px;
+      text-align: end;
+      font-size: 13px;
+      margin-top: 20px;
+      display: flex;
+      justify-content: flex-end;
+
+      .save-button {
+        background-color: transparent;
+        color: var(--primary-button-text);
+        padding: 6px 16px;
+        background: var(--primary-button);
+        border-radius: 4px;
+        border: 0;
+        height: 32px;
+        cursor: pointer;
+        width: fit-content;
+
+        &:hover {
+          background: var(--blue-6);
+        }
+      }
+
+      .cancel-button {
+        cursor: pointer;
+        background: none;
+        border: 0;
+        color: var(--secondary-button-text);
+        padding: 6px 16px;
+        margin-inline-end: 4px;
+        height: 32px;
+        width: fit-content;
+
+        &:hover {
+          color: var(--secondary-button-hover);
+        }
+      }
+    }
+  }
+
+  .flexbox-fix input {
+    padding: 8px !important;
+    font-size: 13px !important;
+    border: 1px solid var(--gray-6) !important;
+    box-shadow: none !important;
+    &:focus {
+      border: 1px solid var(--blue-5) !important;
+      box-shadow: none !important;
+    }
+  }
+  .flexbox-fix label {
+    font-size: 13px !important;
+  }
+}

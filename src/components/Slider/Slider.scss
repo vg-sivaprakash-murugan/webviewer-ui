@@ -1,0 +1,137 @@
+@import '../../constants/styles';
+
+.slider {
+  @include mobile {
+    margin-top: 6px;
+  }
+
+  input {
+    &:focus {
+      outline: none;
+      border: 1px solid var(--slider-input-focus);
+    }
+  }
+
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .slider-input-wrapper {
+    display: flex;
+    align-items: center;
+
+    input:focus {
+      outline: none;
+    }
+    input:focus-visible {
+      outline: var(--focus-visible-outline);
+    }
+  }
+
+  .slider-input-field {
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    height: 28px;
+    width: 50px;
+    text-align: center;
+
+    &.is-editing {
+      border-color: var(--focus-border);
+    }
+
+    @include mobile {
+      width: 79px;
+      height: 32px;
+    }
+  }
+
+  .slider-property {
+    &:nth-child(n + 2) {
+      margin-top: 8px;
+    }
+    margin-bottom: 4px;
+  }
+
+  .slider-element-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .slider-value {
+      min-width: 41px;
+      display: flex;
+      justify-content: flex-end;
+      flex: 1;
+    }
+  }
+
+  .slider-input {
+    width: 100%;
+    margin-inline-end: 5px;
+    position: relative;
+
+    input[type='range'] {
+      position: absolute;
+      inset-block-start: 50%;
+      -webkit-appearance: none;
+      appearance: none;
+      cursor: pointer;
+      accent-color: green;
+
+      /* New additions */
+      height: var(--slider-height);
+      background: #ccc;
+    }
+
+    /***** Chrome, Safari, Opera, and Edge Chromium *****/
+    input[type='range']::-webkit-slider-runnable-track {
+      height: 5px;
+      border-radius: 6px;
+    }
+
+    input[type='range']::-webkit-slider-thumb {
+      /* removing default appearance */
+      -webkit-appearance: none;
+      appearance: none;
+      /* creating a custom design */
+      height: var(--slider-thumb-size);
+      width: var(--slider-thumb-size);
+      background-color: var(--slider-filled);
+      border-radius: 50%;
+      border: 2px solid var(--slider-filled);
+      margin-top: var(--slider-thumb-margin);
+    }
+
+    /******** Firefox ********/
+    input[type='range']::-moz-range-track {
+      background: #053a5f;
+      height: 5px;
+      border-radius: 4px;
+    }
+
+    /***** Focus Styles *****/
+    /* Removes default focus */
+    input[type='range']:focus-visible {
+      outline: none;
+    }
+    /***** Chrome, Safari, Opera, and Edge Chromium *****/
+    input[type='range']:focus-visible::-webkit-slider-thumb {
+      outline: var(--focus-visible-outline);
+      outline-offset: 0.225rem;
+    }
+
+    input {
+      margin: 0px;
+      border: 0px;
+      width: 100%;
+    }
+  }
+
+  [dir="rtl"] .slider-input {
+    input[type='range'] {
+      direction: ltr !important;
+    }
+  }
+}

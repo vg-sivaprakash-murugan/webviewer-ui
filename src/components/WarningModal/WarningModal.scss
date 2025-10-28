@@ -1,0 +1,129 @@
+@import '../../constants/styles';
+@import '../../constants/modal';
+
+.WarningModal {
+  @extend %modal;
+  z-index: 101; // Set to 1 higher than modal z-index so it can be shown on top of other modals
+
+  .container {
+    display: flex;
+    width: 480px;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 4px;
+    background: var(--component-background);
+
+    @include mobile {
+      width: 100%;
+    }
+  }
+
+  &.connect-to-url-modal {
+    overflow: hidden;
+    word-break: break-all;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    padding: 16px;
+
+    .header-text {
+      span {
+        font-size: 16px;
+        font-weight: bold;
+      }
+    }
+
+    .Button {
+      position: absolute;
+      inset-block-start: 10px;
+      inset-inline-end: 10px;
+
+      .Icon {
+        height: 22px;
+        width: 22px;
+        color: var(--icon-color);
+
+        @include mobile {
+          height: 28px;
+          width: 28px;
+        }
+      }
+
+      &:hover {
+        background: var(--view-header-button-hover);
+        border-radius: 4px;
+      }
+    }
+  }
+
+  .body {
+    font-size: 13px;
+    padding: 16px;
+
+    @include mobile {
+      padding: 16px 32px 16px 16px;
+    }
+
+    .customMessage {
+      p:first-child {
+        margin-top: 0;
+      }
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    .footer {
+      justify-content: flex-start;
+    }
+  }
+
+  .footer {
+    padding: 16px;
+    margin-top: 0;
+
+    .ui__choice--center {
+      flex: auto;
+      align-self: center;
+    }
+
+    .modal-button {
+      height: 32px;
+      margin: 0;
+
+      @include mobile {
+        @include button-reset;
+        background: var(--primary-button);
+        border-radius: 4px;
+        height: 32px;
+        width: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        color: var(--primary-button-text);
+        cursor: pointer;
+        font-size: 13px;
+      }
+
+      &.second-option-button {
+        @extend %secondary-button-selected;
+
+        &:hover {
+          @extend %secondary-button-hover;
+        }
+      }
+    }
+  }
+
+  .divider {
+    height: 1px;
+    width: 100%;
+    background: var(--divider);
+  }
+}

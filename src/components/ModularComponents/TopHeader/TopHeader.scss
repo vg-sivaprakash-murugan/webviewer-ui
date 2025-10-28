@@ -1,0 +1,26 @@
+.TopHeader {
+  width: 100%;
+
+  &.start {
+    background: var(--gray-0);
+  }
+
+  &.end {
+    background: var(--tools-header-background);
+  }
+}
+
+.TopHeader.closed {
+  padding: 0;
+  display: none;
+}
+
+.TopHeader.stroke {
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: var(--gray-4);
+}
+
+.TopHeader:nth-child(1) {
+  z-index: 73;
+}

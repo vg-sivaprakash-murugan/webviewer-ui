@@ -1,0 +1,198 @@
+@import '../../constants/styles';
+@import '../../constants/modal';
+@import '../../constants/tabs';
+
+.FilterAnnotModal {
+  @extend %modal;
+  font-size: 0.9em;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 4px;
+    background: var(--component-background);
+    width: 360px;
+
+    @include mobile {
+      width: 100%;
+    }
+
+    .message {
+      font-size: 14px;
+
+      @include mobile {
+        font-size: 16px;
+      }
+    }
+
+    .filter-modal {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      .divider {
+        height: 1px;
+        width: 100%;
+        background: var(--divider);
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        margin: 16px;
+        font-size: 16px;
+        font-weight: bold;
+        align-items: center;
+        height: 24px;
+
+        .Button {
+          height: 32px;
+        }
+      }
+
+      .body {
+        padding: 16px;
+
+        @extend %tab-list;
+
+        .filter-options {
+          height: 200px;
+          width: 100%;
+
+          .tab-panel {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+
+            .include-replies {
+              display: flex;
+              height: 20px;
+              margin-top: 12px;
+
+              label {
+                color: var(--gray-7);
+              }
+            }
+
+            .three-column-filter {
+              margin-top: 20px;
+              overflow-y: scroll;
+              display: grid;
+              grid-gap: 5px 16px;
+              grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+
+            .color-filters {
+              margin-top: 20px;
+              overflow-y: scroll;
+              display: grid;
+              grid-gap: 16px;
+              grid-template-columns: repeat(5, minmax(0, 1fr));
+            }
+
+            .buttons {
+              display: grid;
+              padding: 6px 0 6px 0;
+              grid-template-columns: 100px 100px;
+            }
+
+            .colorSelect {
+              display: flex;
+              flex-direction: row;
+
+              .colorCell {
+                width: 22px;
+                height: 22px;
+                border-radius: 10000000px;
+                margin-inline-start: 4px;
+                border: 1px solid var(--gray-6);
+              }
+            }
+
+            label {
+              overflow: hidden;
+
+              div {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+              }
+            }
+          }
+        }
+      }
+
+      .settings-body {
+        display: flex;
+        flex-direction: column;
+        margin: 16px 0px 0px 0px;
+        border: 0;
+        padding: 16px;
+        font-size: var(--font-size-default);
+        gap: 12px;
+
+        .settings-header {
+          font-weight: var(--font-weight-bold);
+          padding: 0;
+        }
+
+        .settings {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+      }
+
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        padding: 16px;
+        margin-top: 0px;
+
+        .Button {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: var(--primary-button-text);
+          padding: 6px 18px;
+          width: auto;
+          width: fit-content;
+          background: var(--primary-button);
+          border-radius: 4px;
+          height: 32px;
+          cursor: pointer;
+
+          &.filter-annot-apply:hover {
+            background: var(--primary-button-hover);
+          }
+
+          &.disabled {
+            border-color: var(--gray-6);
+            cursor: not-allowed;
+          }
+        }
+
+        .filter-annot-clear {
+          color: var(--blue-5);
+          background: none;
+
+          &:not(.disabled):hover {
+            color: var(--secondary-button-hover);
+            background: none;
+          }
+          &:disabled {
+            opacity: 0.5;
+            span {
+              color: unset;
+            }
+          }
+        }
+      }
+    }
+
+    @include tab-border-defaults;
+  }
+}

@@ -1,0 +1,70 @@
+.RibbonItem {
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: var(--faded-text);
+  white-space: nowrap;
+  height: auto;
+
+  .Button {
+    width: 100%;
+    padding: 8px;
+    column-gap: 8px;
+    row-gap: 4px;
+    color: var(--faded-text);
+    border-color: transparent;
+    border-style: solid;
+    &.active {
+      color: var(--ribbon-active-color);
+      background-color: transparent;
+      .Icon {
+        color: var(--ribbon-active-color);
+      }
+    }
+    &:hover {
+      background-color: transparent;
+      color: var(--ribbon-hover-color);
+      .Icon {
+        color: var(--ribbon-hover-color);
+      }
+    }
+  }
+
+  &:not(.vertical) .Button {
+    border-width: 2px 0;
+    &.active {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      border-bottom-color: var(--ribbon-active-color);
+    }
+    &:hover {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      border-bottom-color: var(--ribbon-hover-color);
+    }
+  }
+
+  &.vertical {
+    white-space: wrap;
+    .Button {
+      flex-direction: column;
+      height: 100%;
+      border-width: 0 2px;
+      &.active {
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+        border-inline-start-color: var(--ribbon-active-color);
+      }
+      &:hover {
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+        border-inline-start-color: var(--ribbon-hover-color);
+      }
+    }
+  }
+
+  .Button:focus-visible {
+    border-radius: 0;
+  }
+}

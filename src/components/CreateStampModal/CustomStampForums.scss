@@ -1,0 +1,436 @@
+@import '../../constants/styles';
+@import '../../constants/modal';
+
+$border-radius: 4px;
+$container-margin: 16px;
+
+.text-customstamp {
+  padding: 16px;
+  margin: 0px 0px;
+  display: flex;
+  flex-direction: column;
+
+  @include mobile {
+    width: 100%;
+    padding: 4px 8px;
+
+    .scroll-container {
+      width: 100%;
+      max-height: 50%;
+      padding-bottom: 0;
+      margin-bottom: 0;
+      overflow-y: auto;
+      overflow-x: visible;
+    }
+  }
+
+  &-input {
+    outline: none;
+    border-radius: $border-radius;
+    border: 1px solid var(--gray-6);
+    box-shadow: none;
+    padding: 5px;
+  }
+
+  .txt-uppercase {
+    text-transform: uppercase;
+  }
+
+  &-container {
+    position: relative;
+    margin-top: 10px;
+    flex: 1;
+    border: 1px solid var(--modal-stroke-and-border);
+    border-radius: $border-radius;
+    overflow: auto;
+
+    canvas {
+      position: absolute;
+      visibility: hidden;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &-inner-container {
+    position: absolute;
+    min-width: 100%;
+  }
+
+  .canvas-container {
+    border: 1px solid var(--gray-6);
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--signature-draw-background);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 48px 74px;
+    border-radius: $border-radius;
+
+    @include mobile {
+      padding: 12px 0.5px;
+    }
+
+    .custom-stamp-canvas {
+      box-sizing: border-box;
+
+      @media (max-width: 430px) {
+        transform: scale(0.8);
+      }
+    }
+  }
+
+  .color-container {
+    margin-top: $container-margin;
+    width: 100%;
+
+    .ColorPalette {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      gap: 4px;
+
+      @include mobile {
+        padding: 4px;
+      }
+
+      .cell-outer {
+        margin-inline-end: 16px;
+
+        &.active {
+          margin-inline-start: -4px;
+          margin-inline-end: 10px;
+          width: 28px;
+          height: 28px;
+        }
+
+        .cell {
+          width: 16px;
+          height: 16px;
+        }
+      }
+
+      .cell-container {
+        flex: unset;
+        width: auto;
+        height: auto;
+      }
+
+      .cell-tool {
+        margin-inline-end: 8px;
+        margin-inline-start: -4px;
+
+        .cell-outer {
+          margin: 4px 4px;
+        }
+
+        &:hover {
+          @extend %icon-button-hover;
+        }
+
+        &.active {
+          box-shadow: inset 0 0 0 1px var(--blue-5);
+          background: var(--tools-button-active);
+
+          .Icon {
+            color: var(--blue-5);
+          }
+        }
+
+        &:disabled {
+          box-shadow: none;
+          background: transparent;
+        }
+      }
+    }
+  }
+
+  .stamp-input-container {
+    margin-top: $container-margin;
+    padding: 0px;
+    position: relative;
+
+    .text-customstamp-input {
+      margin-top: 8px;
+      height: 32px;
+      width: 100%;
+      padding: 6px;
+
+      &.error {
+        border: 1px solid var(--error-text-color);
+      }
+    }
+
+    .error-icon {
+      position: absolute;
+      inset-inline-end: 8px;
+      inset-block-start: 28px;
+      color: var(--error-text-color);
+
+      @include mobile {
+        inset-block-start: 30px;
+      }
+    }
+
+    .empty-stamp-input {
+      height: 16px;
+      margin-top: 4px;
+      color: var(--error-text-color);
+    }
+  }
+
+  .stamp-sublabel,
+  .stamp-label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    text-transform: capitalize;
+
+    @include mobile {
+      font-size: 13px;
+      height: 16px;
+    }
+  }
+
+  .timestamp-container {
+    margin-top: $container-margin;
+    padding: 0px;
+
+    .timeStamp-choice {
+      height: 16px;
+      display: grid;
+      width: 100%;
+      grid-template-columns: 22.32% 22.32% 22.32% 33.04%;
+      grid-gap: 16px;
+
+      @media (max-width: 430px) {
+        grid-template-columns: 30% 30% 30%;
+        height: 100%;
+        font-size: 13px;
+      }
+
+      // hack for IE11
+      @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        .ui__choice {
+          display: -ms-inline-flexbox;
+          width: 33.33%;
+        }
+      }
+
+      .ui__choice {
+        margin: 0;
+        line-height: 1;
+
+        .ui__choice__label {
+          padding-inline-start: 4px;
+        }
+      }
+    }
+  }
+
+  .date-format-container {
+    margin-top: $container-margin;
+    display: flex;
+    flex-wrap: wrap;
+
+    .Dropdown__wrapper {
+      width: 100%;
+
+      .Dropdown {
+        height: 32px;
+        width: 100% !important;
+        text-align: start;
+      }
+
+      .arrow {
+        flex: unset;
+      }
+
+      .Dropdown__items {
+        @include mobile {
+          max-height: 200px;
+        }
+
+        z-index: 101;
+        inset-block-start: auto;
+        inset-inline-start: 0;
+        inset-inline-end: auto;
+        width: 100% !important;
+      }
+
+      .Dropdown__items.hide {
+        height: 0px;
+      }
+    }
+
+    .hover-icon {
+      .Icon {
+        width: 18px;
+        height: 18px;
+      }
+
+      margin-inline-start: 2px;
+      position: relative;
+
+      .date-format-description {
+        display: flex;
+        flex-direction: column;
+        text-align: start;
+        position: absolute;
+        background-color: black;
+        border-radius: 5px;
+        padding: 12px;
+        color: white;
+        width: 120px;
+        z-index: 101;
+        inset-block-end: 100%;
+        inset-block-start: auto;
+        inset-inline-start: 0;
+        inset-inline-end: auto;
+      }
+
+      &:hover {
+        .Icon {
+          color: var(--blue-6);
+        }
+      }
+    }
+  }
+
+  .font-container {
+    margin-top: 8px;
+
+    .font-inner-container {
+      display: flex;
+      gap: 12px;
+
+      @include mobile {
+        gap: 6px;
+      }
+    }
+
+    .stamp-sublabel {
+      font-weight: bold;
+
+      margin-bottom: 8px;
+
+      @include mobile {
+        font-size: 13px;
+        height: 16px;
+      }
+    }
+
+    .Dropdown__wrapper {
+      .Dropdown {
+        margin-inline-end: 4px;
+        height: 32px;
+        width: 268px !important;
+
+        @include mobile {
+          width: 200px !important;
+        }
+
+        text-align: start;
+      }
+
+      .arrow {
+        flex: unset;
+      }
+
+      .Dropdown__items {
+        @include mobile {
+          inset-block-end: auto;
+          height: 200px;
+          width: 200px !important;
+        }
+
+        inset-block-start: auto;
+        inset-inline-start: 0;
+        inset-inline-end: auto;
+        width: 268px !important;
+      }
+    }
+
+    .Button {
+      background: none;
+      width: 32px;
+      height: 32px;
+      margin: 0;
+
+      .Icon {
+        height: 24px;
+        width: 24px;
+        color: var(--icon-color);
+      }
+
+      &:hover {
+        background: var(--popup-button-hover);
+
+        .Icon {
+          .cls-1 {
+            fill: currentColor;
+          }
+        }
+      }
+
+      &.active {
+        background: var(--popup-button-active);
+
+        .Icon {
+          color: var(--blue-5);
+
+          .cls-1 {
+            fill: currentColor;
+          }
+        }
+      }
+    }
+  }
+
+  .custom-checkbox {
+    position: relative;
+    user-select: none;
+    margin-bottom: 5px;
+    margin-top: 5px;
+
+    input {
+      display: none;
+
+      & + label:before {
+        cursor: pointer;
+        content: '';
+        margin: 1px 10px 0px 0px;
+        display: inline-block;
+        vertical-align: text-top;
+        width: 16px;
+        height: 16px;
+        border-radius: $border-radius;
+        border: 1px solid #979797;
+      }
+
+      &:checked + label:before {
+        background: $pdftron-blue;
+        border: 1px solid transparent;
+      }
+
+      &:checked + label:after {
+        content: '';
+        position: absolute;
+        inset-inline-start: 4px;
+        inset-block-start: 9px;
+        background: var(--gray-0);
+        width: 2px;
+        height: 2px;
+        box-shadow: 2px 0 0 var(--gray-0), 4px 0 0 var(--gray-0), 4px -2px 0 var(--gray-0), 4px -4px 0 var(--gray-0),
+          4px -6px 0 var(--gray-0), 4px -8px 0 var(--gray-0);
+        transform: rotate(45deg);
+      }
+    }
+
+    label {
+      align-items: center;
+    }
+  }
+}

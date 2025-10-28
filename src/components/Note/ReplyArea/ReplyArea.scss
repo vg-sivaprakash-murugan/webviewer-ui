@@ -1,0 +1,64 @@
+@import '../../../constants/styles';
+@import '../../../constants/note';
+
+.reply-area-container {
+  border-top: 1px solid var(--divider);
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0px;
+
+  .reply-attachment-list {
+    margin: 12px 12px 0 12px;
+  }
+
+  .reply-area-with-button {
+    display: flex;
+
+    .reply-area {
+      position: relative;
+      flex: 1;
+      margin: 12px 17px 12px 12px;
+      border-radius: 4px;
+      align-items: center;
+
+      &.unread {
+        background: rgba($color: $pdftron-blue, $alpha: 0.08);
+      }
+
+      .comment-textarea .ql-container .ql-editor.ql-blank {
+        padding: 4px 4px 4px 4px;
+
+        &::before {
+          inset-inline-start: 4px;
+        }
+      }
+    }
+
+    .reply-button-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+
+      .reply-button {
+        width: 28px;
+        height: 28px;
+        @include button-reset;
+
+        // for IE only
+        @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+          width: 80px;
+        }
+        inset-inline-end: 10px;
+        inset-block-end: 12px;
+
+        &:hover {
+          background: var(--blue-1);
+        }
+
+        &.disabled {
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}

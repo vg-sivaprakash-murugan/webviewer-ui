@@ -1,0 +1,37 @@
+.LineStyleOptions {
+  width: 100%;
+  margin-top: 4px;
+  margin-bottom: 4px;
+
+  .LayoutTitle {
+    margin-inline-start: 6px;
+  }
+
+  .StyleContainer {
+    margin: 4px 2px 0 2px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .linestyle-image svg {
+    width: 35px;
+    margin-top: 11px;
+  }
+
+  .linestyle-image.shift-alignment svg {
+    margin-top: 8px;
+  }
+
+  .Dropdown__items .linestyle-image svg {
+    width: 45px;
+  }
+
+  [data-element='middleLineStyleDropdown'] .linestyle-image.shift-alignment {
+    padding-top: 0;
+  }
+
+  [data-element='middleLineStyleDropdown'] .Dropdown__items {
+    inset-block-start: -197px;
+  }
+}

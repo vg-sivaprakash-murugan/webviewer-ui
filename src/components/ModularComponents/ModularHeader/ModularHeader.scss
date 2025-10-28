@@ -1,0 +1,23 @@
+@import '../../../constants/styles.scss';
+
+.ModularHeader {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  min-height: $modular-header-min-height;
+  padding: 8px 12px;
+  background: var(--gray-0);
+  z-index: $headers-z-index;
+  touch-action: none;
+  outline: 2px solid transparent;
+
+  &:has(:focus-visible) {
+    outline-color: var(--focus-visible-outline) !important;
+    outline-offset: -2px;
+  }
+
+  &:has(.tab-body.input-mode) {
+    outline-color: transparent !important;
+  }
+}

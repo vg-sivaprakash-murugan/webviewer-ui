@@ -1,0 +1,138 @@
+:root {
+  /* stylelint-disable color-no-hex */
+  --blue-1: #192530;
+  --blue-2: #1b2b3a;
+  --blue-3: #334250;
+  --blue-4: #334758;
+  --blue-5: #1a4971;
+  --blue-6: #3183c8;
+
+  --gray-0: #000000;
+  --gray-1: #16181c;
+  --gray-2: #21242a;
+  --gray-3: #343a40;
+  --gray-4: #485056;
+  --gray-5: #868e96;
+  --gray-6: #adb5bd;
+  --gray-7: #cfd4da;
+  --gray-8: #dee2e6;
+  --gray-9: #e7ebee;
+  --gray-10: #f1f3f5;
+  --gray-11: #f8f9fa;
+  --gray-12: #ffffff;
+
+  --yellow-1: #e1b90080;
+  --red: red;
+  /* stylelint-enable color-no-hex */
+
+  --panel-background: var(--gray-3);
+  --faded-component-background: var(--gray-1);
+  --toggle-zoom-overlay-background: var(--gray-4);
+  --component-background: var(--gray-2);
+  --mobile-tool-style-popup: var(--gray-3);
+  --preset-background: var(--gray-3);
+  --mobile-divider: var(--gray-7);
+  --mobile-presets-background: var(--gray-3);
+
+  --error-text-color: var(--red);
+  --error-border-color: var(--red);
+
+  --ribbons-background: var(--gray-2);
+  --box-shadow: var(--gray-5);
+  --document-box-shadow: var(--gray-5);
+  --focus-border: var(--blue-6);
+
+  --scroll-chevron-color: var(--gray-5);
+  --icon-color: var(--gray-6);
+  --faded-text: var(--gray-6);
+  --text-color: var(--gray-11);
+  --placeholder-text: var(--gray-5);
+  --ribbon-active-color: var(--blue-6);
+
+  --no-presets-text: var(--gray-6);
+  --disabled-text: var(--gray-4);
+  --disabled-icon: var(--gray-4);
+
+  --slider-filled: var(--blue-6);
+  --slider-background: var(--gray-4);
+  --badge-fill: var(--gray-4);
+  --badge-text-color: var(--gray-12);
+  --primary-button: var(--blue-6);
+  --primary-button-text: var(--gray-11);
+  --secondary-button-text: var(--blue-6);
+  --divider: var(--gray-4);
+  --side-panel-border: var(--panel-background);
+  --border: var(--gray-4);
+  --selected-icon-color: var(--gray-8);
+  --view-header-icon-active-fill: var(--gray-10);
+  --document-background-color: var(--gray-2);
+
+  --view-header-button-hover: var(--blue-3);
+  --view-header-button-active: var(--blue-4);
+
+  --popup-button-hover: var(--blue-3);
+  --popup-button-active: var(--blue-4);
+
+  --dropdown-item-hover: var(--popup-button-hover);
+  --dropdown-item-active: var(--popup-button-active);
+  --dropdown-item-active-text: var(--text-color);
+  --dropdown-item-active-icon: var(--icon-color);
+
+  --primary-button-hover: var(--blue-5);
+  --secondary-button-hover: var(--blue-5);
+
+  --color-palette-border: var(--gray-7);
+
+  --image-signature-drop-background: var(--blue-1);
+  --image-signature-drop-border: var(--blue-6);
+  --file-picker-drop-background: var(--blue-1);
+  --file-picker-drop-border: var(--blue-6);
+  --signature-draw-background: var(--gray-3);
+  --modal-stroke-and-border: var(--gray-4);
+  --modal-negative-space: rgba(0, 0, 0, 0.3);
+  --spinner-negative-space: rgba(0, 0, 0, 0.3);
+
+  --white-color-palette-border: transparent;
+
+  --list-separator-color: var(--gray-7);
+  --scrollbar-color: var(--gray-5);
+  --note-box-shadow: var(--gray-2);
+  --note-box-shadow-expanded: var(--gray-2);
+
+  --tools-header-background: var(--gray-1);
+  --view-header-background: var(--gray-3);
+  --tools-overlay-background: var(--gray-2);
+
+  --tools-button-hover: var(--blue-1);
+  --tools-button-active: var(--blue-2);
+
+  --tools-overlay-button-hover: var(--blue-3);
+  --tools-overlay-button-active: var(--blue-4);
+
+  --outline-color: var(--blue-6);
+  --outline-hover: var(--blue-3);
+  --outline-selected: var(--blue-3);
+
+  --scale-overlay-item-hover: var(--blue-3);
+
+  --oe-table-dropdown-highlight: var(--blue-5);
+
+  --bookmark-outline-hover-border: transparent;
+
+  --checked-option: var(--blue-6);
+
+  --file-preview-background: var(--gray-5);
+
+  --tab-border-color: var(--border);
+  --tab-border-color-hover: var(--border);
+  --tab-background-color-hover: var(--popup-button-hover);
+  --tab-color-selected: var(--border);
+  --tab-text-color-selected: var(--text-color);
+
+  --disabled-button-color: rgba(173, 181, 189, 0.5);
+  --tab-footer-button-color: var(--primary-button-text);
+
+  --input-switch-default-color: var(--gray-3);
+
+  --focus-visible-outline: 2px solid var(--gray-10);
+}

@@ -1,0 +1,54 @@
+@import '../../../constants/styles';
+@import '../../../constants/modal';
+@import '../../../constants/panel';
+
+.MobilePanelWrapper {
+  @extend %open;
+  @extend %closed;
+  @extend %modal-shared-container-style;
+  position: fixed;
+  inset-block-end: 0;
+  padding-bottom: 10px;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  overflow-y: visible;
+  background-color: var(--panel-background);
+  transition: height, max-height 0.3s ease-out;
+
+  &.full-size {
+    max-height: 100%;
+  }
+
+  &.half-size {
+    max-height: 50%;
+  }
+
+  &.small-size {
+    max-height: 140px;
+    overflow: hidden;
+  }
+
+  .mobile-panel-body {
+    inset-block-start: -30px;
+    position: relative;
+  }
+
+  .swipe-indicator-wrapper {
+    position: relative;
+    width: 100%;
+    height: 60px;
+    inset-block-start: 0;
+    z-index: 1;
+    pointer-events: auto;
+
+    .swipe-indicator {
+      @extend %swipe-indicator;
+      margin: 10px auto;
+      inset-block-start: 0;
+    }
+  }
+}

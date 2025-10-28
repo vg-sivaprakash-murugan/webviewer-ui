@@ -1,0 +1,33 @@
+@import '../../constants/styles';
+@import '../../constants/panel';
+
+.SignaturePanel {
+  @extend %panel;
+  margin: 0px 8px 8px 8px;
+  display: flex;
+  flex-direction: column;
+
+  @include mobile {
+    width: auto;
+    margin: 16px;
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+
+  .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .signature-widget-info {
+    .title {
+      .arrow {
+        @include mobile {
+          min-width: auto;
+          padding: 3px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,3 @@
+import RedactionSearchOverlayContainer from './RedactionSearchOverlayContainer';
+
+export default RedactionSearchOverlayContainer;

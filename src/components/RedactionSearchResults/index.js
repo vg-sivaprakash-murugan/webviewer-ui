@@ -1,0 +1,3 @@
+import RedactionSearchResultsContainer from './RedactionSearchResultsContainer';
+
+export default RedactionSearchResultsContainer;

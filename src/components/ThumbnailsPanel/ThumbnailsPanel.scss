@@ -1,0 +1,158 @@
+@import '../../constants/panel';
+
+.thumbnail-slider-container {
+  display: flex;
+  align-items: center;
+  margin: 0 8px 16px 16px;
+  width: 230px;
+  margin: 0 auto;
+  height: 40px;
+
+  @include mobile {
+    width: inherit;
+    margin: 16px;
+  }
+
+  .thumbnail-slider {
+    width: 100%;
+    height: 20px;
+    padding: 0px 0px;
+    color: transparent;
+    background-color: transparent;
+    border: 0px 0px transparent;
+  }
+
+  input[type='range'] {
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    accent-color: green;
+
+    /* New additions */
+    height: 3px;
+    background: #2980b9;
+  }
+
+  /***** Chrome, Safari, Opera, and Edge Chromium *****/
+  input[type='range']::-webkit-slider-runnable-track {
+    height: 5px;
+    border-radius: 6px;
+  }
+
+  input[type='range']::-webkit-slider-thumb {
+    /* removing default appearance */
+    -webkit-appearance: none;
+    appearance: none;
+    /* creating a custom design */
+    height: 14px;
+    width: 14px;
+    background-color: var(--slider-filled);
+    border-radius: 50%;
+    border: 2px solid var(--slider-filled);
+    margin-top: -4px;
+  }
+
+  /******** Firefox ********/
+  input[type='range']::-moz-range-track {
+    height: 5px;
+    border-radius: 4px;
+  }
+
+  button {
+    width: 15px;
+    height: 15px;
+    margin: 2.5px;
+    padding-top: 6px;
+
+    &:hover {
+      background: var(--view-header-button-hover);
+      border-radius: 4px;
+    }
+  }
+
+  .slider {
+    width: 100%;
+
+    @include mobile {
+      margin-top: 0px;
+    }
+
+    .slider-element-container {
+      @include mobile {
+        width: auto;
+        margin-inline-start: auto;
+      }
+    }
+  }
+}
+
+.ThumbnailsPanel {
+  // !important is used otherwise it will be overriden by .LeftPanel.Panel in LeftPanel.scss
+  // we should fix this to not use !important after 6.0 release
+  overflow: hidden !important;
+  display: flex;
+  height: 100%;
+
+  @include mobile {
+    width: inherit;
+    margin: 0px 16px;
+  }
+
+  #virtualized-thumbnails-container {
+    flex: 1;
+
+  }
+  .ReactVirtualized__Grid.ReactVirtualized__List.thumbnailsList {
+    &.right-to-left {
+      direction: rtl !important;
+    }
+  }
+  
+  .row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .thumbnailPlaceholder {
+    width: 150px;
+    margin: 2px;
+    border: 1px solid var(--focus-border);
+  }
+
+  .columnsOfThumbnails {
+    &.row {
+      display: flex;
+      justify-content: left;
+      align-items: center;
+      flex-direction: row;
+    }
+    .cellThumbContainer {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .Thumbnail {
+      display: inline-flex;
+    }
+
+    .thumbnailPlaceholder {
+      width: 116px;
+      min-width: 116px;
+      height: 150px;
+      margin-bottom: 30px;
+    }
+  }
+}
+
+.cellThumbContainer {
+  border-radius: 4px;
+}
+
+.thumbnailAutoScrollArea {
+  position: absolute;
+  width: calc(100% - 55px);
+  z-index: 10;
+  background: rgba(255, 255, 255, 0);
+}

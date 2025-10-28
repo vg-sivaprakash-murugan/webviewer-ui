@@ -1,0 +1,13 @@
+@import '../../constants/officeEditor.scss';
+
+.track-change-overlay {
+  @include oe-modular-custom-dropdown;
+
+  &.modular-ui.flyout-item {
+    width: 100%;
+
+    & > .Dropdown__wrapper {
+      @include oe-modular-flyout-dropdown;
+    }
+  }
+}

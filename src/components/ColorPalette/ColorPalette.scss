@@ -1,0 +1,91 @@
+@import '../../constants/styles.scss';
+
+.ColorPalette {
+  display: flex; // fallback for ie11, grid not available
+  flex-wrap: wrap; // fallback for ie11, grid not available
+
+  @include ie11 {
+    width: 196px; // hack for ie11. Have to define width for flex basis to work.
+  }
+
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+
+  &.padding {
+    padding-top: 4px;
+    padding-bottom: 8px;
+    padding-inline-start: 12px;
+    padding-inline-end: 12px;
+  }
+
+  @include mobile {
+    max-width: 450px;
+    width: auto;
+
+    @include ie11 {
+      width: 308px; // hack for ie11. Have to define width for flex basis to work.
+    }
+  }
+
+  .cell-container {
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    flex: 1 0 14%; // fallback for ie11, grid not available
+
+    cursor: pointer;
+    width: var(--cell-border-size);
+    height: var(--cell-border-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+
+    &[disabled],
+    &.disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    @include mobile {
+      width: 28px;
+      height: 28px;
+    }
+
+    .cell-outer {
+      &.active {
+        border: 1px solid var(--color-palette-border);
+        width: var(--cell-outer-border-size);
+        height: var(--cell-outer-border-size);
+        border-radius: 10000000px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        @include mobile {
+          width: 28px;
+          height: 28px;
+        }
+      }
+
+      .cell {
+        width: 18px;
+        height: 18px;
+        border-radius: 10000000px;
+
+        .transparent {
+          border: 2px solid var(--faded-text);
+          border-radius: 10000000px;
+        }
+
+        &.border {
+          border: 1px solid var(--white-color-palette-border);
+        }
+      }
+    }
+
+    &:focus-visible {
+      outline: var(--focus-visible-outline);
+    }
+  }
+}

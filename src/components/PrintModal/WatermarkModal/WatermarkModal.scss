@@ -1,0 +1,386 @@
+@import '../../../constants/styles';
+@import '../../../constants/modal';
+@import '../../../constants/popup';
+
+@import './media-query';
+
+.Watermark {
+  @extend %modal;
+  z-index: $modal-z-index + 10;
+
+  .modal-container {
+    @include mobile {
+      overflow: visible;
+    }
+  }
+
+  .h2 {
+    @include mobile {
+      font-size: 16px;
+    }
+  }
+
+  .StylePopup {
+    position: absolute;
+    margin-top: -140px;
+    background: var(--preset-background);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 0px 0px 4px 4px;
+    box-shadow: 0 0 3px 0 var(--box-shadow);
+    align-items: center;
+    z-index: 85;
+
+    @include ie11 {
+      margin-top: 0;
+    }
+
+    .ColorPalette {
+      padding: 10px;
+    }
+  }
+
+  .style-container {
+    display: flex;
+
+    .Button {
+      margin-inline-end: 8px;
+
+      &:hover {
+        background: var(--popup-button-hover);
+      }
+
+      &.active {
+        background: var(--popup-button-active);
+      }
+    }
+  }
+
+  .form-content-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    width: 100%;
+
+    & form {
+      width: auto;
+      @include portrait-mobile {
+        width: auto;
+      }
+    }
+
+    @include mobile {
+      flex-direction: column;
+      padding: 16px 16px 0px 16px;
+    }
+  }
+
+  .font-form-fields {
+    display: flex;
+    flex-direction: column;
+    margin: 0px;
+
+    @include mobile {
+      flex-direction: row;
+    }
+
+    .form-font-type {
+      margin-top: 16px;
+      margin-inline-start: 16px;
+
+      @include mobile {
+        width: 160px;
+        margin-inline-start: 0px;
+      }
+
+      label {
+        font-weight: 700;
+
+        @include mobile {
+          font-size: 13px;
+        }
+      }
+
+      .Dropdown__wrapper {
+        margin-top: 8px;
+
+        @include mobile {
+          width: 160px;
+        }
+
+        .Dropdown {
+          text-align: start;
+          height: 32px;
+
+          @include mobile {
+            height: 28px;
+            width: 160px;
+            z-index: 0;
+          }
+        }
+
+        .Dropdown__items {
+          width: 100%;
+          inset-block-start: 0;
+        }
+
+        &#location {
+          .Dropdown__items {
+            z-index: 101;
+          }
+        }
+      }
+    }
+
+    .form-font-size {
+      margin-top: 16px;
+      margin-inline-start: 16px;
+
+      @include mobile {
+        width: 160px;
+        margin-inline-start: 8px;
+      }
+
+      label {
+        font-weight: 700;
+
+        @include mobile {
+          font-size: 13px;
+        }
+      }
+
+      .FontSizeDropdown {
+        padding: 2px;
+        height: 32px;
+        margin-top: 8px;
+
+        @include mobile {
+          height: 28px;
+        }
+
+        .icon-button {
+          cursor: pointer;
+          width: 14px;
+          height: 14px;
+        }
+
+        .icon-button > .Icon {
+          color: var(--icon-color);
+          width: 12px;
+          height: 16px;
+          margin-top: 2px;
+        }
+      }
+    }
+  }
+
+  .watermark-settings {
+    display: flex;
+    flex-direction: column;
+    width: 330px;
+
+    @include mobile {
+      width: 100%;
+      height: 374px;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      margin: 16px 0px 0px 16px;
+
+      @include mobile {
+        margin: 0px 0px 0px 0px;
+        width: 100%;
+      }
+
+      label {
+        margin-bottom: 8px;
+        font-weight: 700;
+
+        @include mobile {
+          margin-top: 16px;
+          font-size: 13px;
+        }
+      }
+
+      select,
+      .text-input {
+        height: 32px;
+
+        @include mobile {
+          height: 28px;
+        }
+      }
+
+      &.opacity-slider {
+        display: flex;
+        margin-bottom: 0px;
+
+        .slider-property {
+          font-weight: 700;
+        }
+
+        .slider-svg-container {
+          margin: 0px; //child component sets it to -5px
+          height: 30px;
+        }
+
+        @include ie11 {
+          align-items: stretch;
+        }
+
+        @include mobile {
+          font-size: 13px;
+          margin-top: 16px;
+        }
+      }
+
+      .Dropdown__wrapper {
+        @include mobile {
+          width: 328px;
+        }
+
+        button {
+          width: 314px;
+        }
+        .Dropdown {
+          text-align: start;
+          width: 314px;
+          height: 32px;
+
+          @include mobile {
+            height: 28px;
+            z-index: 0;
+          }
+        }
+
+        .Dropdown__items {
+          width: 100%;
+          inset-block-start: 0;
+        }
+
+        &#location {
+          .Dropdown__items {
+            z-index: 101;
+          }
+        }
+      }
+    }
+
+    .colorSelect {
+      width: 18px;
+      height: 18px;
+      margin: 7px;
+      margin-inline-end: 8px;
+      border-radius: 10000000px;
+    }
+
+    .white-color {
+      border: 1px solid var(--white-color-palette-border);
+    }
+
+    .slider-input-field {
+      height: 32px;
+    }
+  }
+
+  .canvas-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    height: 436px;
+    background-color: var(--file-preview-background);
+    border: 1px solid var(--lighter-border);
+
+    // highly unlikely someone will be editing watermarking on mobile
+    @include mobile {
+      display: block;
+      width: 328px;
+      height: 261px;
+    }
+
+    canvas {
+      width: 325px !important;
+
+      @include mobile {
+        width: 328px;
+        height: 261px;
+        object-fit: contain;
+        background-color: var(--file-preview-background);
+      }
+    }
+  }
+
+  .divider {
+    height: 1px;
+    width: 100%;
+    background: var(--divider);
+
+    &.separator {
+      margin-top: 16px;
+    }
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    width: 100%;
+    padding: 16px;
+
+    .button {
+      padding: 6px 18px;
+      width: auto;
+
+      &.add-watermark {
+        @extend %default-button-selected;
+
+        &:hover {
+          @extend %default-button-hover;
+        }
+
+        @include mobile {
+          font-size: 13px;
+        }
+      }
+
+      &.cancel {
+        color: var(--secondary-button-text);
+        background: none;
+
+        &:hover {
+          color: var(--secondary-button-hover);
+        }
+      }
+    }
+
+     .reset-settings {
+      @include button-reset;
+      cursor: pointer;
+      background: none;
+      border: 0;
+      border-radius: 4px;
+      color: var(--secondary-button-text);
+      display: flex;
+      font-size: 13px;
+      padding: 6px 18px;
+
+      &:hover {
+        color: var(--secondary-button-hover);
+      }
+
+      &:focus-visible {
+        outline: var(--focus-visible-outline) !important;
+      }
+
+      @include mobile {
+        font-size: 13px;
+      }
+    }
+  }
+}

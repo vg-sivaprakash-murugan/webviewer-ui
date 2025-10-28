@@ -1,0 +1,3 @@
+import PageManipulationControlsContainer from './PageManipulationControlsContainer';
+
+export default PageManipulationControlsContainer;

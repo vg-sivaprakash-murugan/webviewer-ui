@@ -1,0 +1,162 @@
+@import '../../constants/styles';
+
+.document-content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  user-select: none;
+  width: 100%;
+  height: 100%;
+  transition: all 0.3s ease-in-out;
+
+  .measurement-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    overflow: hidden;
+    user-select: none;
+    width: 100%;
+    height: 100%;
+
+    .footer {
+      pointer-events: none;
+      position: absolute;
+      inset-block-end: 0;
+      inset-inline-start: 0;
+      z-index: 55;
+      width: 100%;
+      transition: all 0.3s ease;
+
+      & > * {
+        pointer-events: auto;
+      }
+    }
+  }
+
+  &.closed {
+    display: none;
+  }
+}
+
+.DocumentContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+  overflow: auto;
+  user-select: none;
+
+  @include ie11 {
+    margin-inline-start: 0 !important;
+    width: 100% !important;
+  }
+
+  .document {
+    margin: auto; // vertical centering when content is smaller than document container
+    // can't use 'justify-content: center;' due to losing access to content when overflowing
+    // see: https://stackoverflow.com/questions/33454533/cant-scroll-to-top-of-flex-item-that-is-overflowing-container
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+
+    &.hidden {
+      display: none;
+    }
+
+    .pageSection {
+      &[id*='pageSectionb'] {
+        box-shadow: none;
+      }
+
+      .pageContainer {
+        background-color: $document-bg-color;
+        position: relative;
+        box-shadow: $md-shadow1;
+
+        span.link {
+          cursor: pointer;
+        }
+      }
+
+      .a11y-reader-container {
+        position: absolute;
+        inset-block-start: 0;
+        inset-inline-start: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .a11y-reader-content {
+        position: absolute;
+        margin: 0;
+        pointer-events: none;
+        color: transparent;
+        z-index: 40;
+
+        // cut off the text so that screen readers highlight the whole bbox without overflowing
+        overflow: hidden;
+        word-break: break-all;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
+      link {
+        &.a11y-reader-content {
+          display: block !important;
+        }
+      }
+    }
+
+    textarea.freetext {
+      position: absolute;
+      z-index: 20;
+      border: 0;
+      padding: 0;
+      box-sizing: border-box;
+      resize: none;
+      outline: 1px solid transparent;
+    }
+  }
+
+  .bookmark-shortcut {
+    z-index: 40;
+    width: 20px;
+    height: 20px;
+    inset-block-start: 0;
+    inset-inline-end: 25px;
+    cursor: pointer;
+
+    &.filled {
+      color: var(--primary-button);
+
+      svg.filled {
+        display: inline;
+      }
+
+      svg.unfilled {
+        display: none;
+      }
+    }
+
+    &.unfilled {
+      color: var(--placeholder-text);
+
+      &:hover {
+        color: var(--primary-button);
+      }
+
+      svg.filled {
+        display: none;
+      }
+
+      svg.unfilled {
+        display: inline;
+      }
+    }
+  }
+}
+
+.disable-page-scroll {
+  overflow: hidden;
+}

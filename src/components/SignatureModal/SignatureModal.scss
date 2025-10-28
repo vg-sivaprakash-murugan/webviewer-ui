@@ -1,0 +1,371 @@
+@import '../../constants/styles';
+@import '../../constants/modal';
+@import '../../constants/tabs';
+
+.SignatureModal {
+  @extend %modal;
+
+  .modal-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 480px;
+    padding: 0px;
+    border-radius: 4px;
+    background: var(--component-background);
+    overflow-y: visible;
+
+    @include mobile {
+      width: 100%;
+    }
+
+    &.include-initials {
+      width: 664px;
+    }
+
+    @include mobile {
+      border-radius: 0;
+      height: 440px;
+    }
+
+    @include tiny-browser-height {
+      display: grid;
+      height: 100%;
+      position: fixed;
+      inset-block-start: 0;
+      grid-template-rows: 100px auto 70px;
+      justify-content: normal;
+    }
+
+    .tabs-header-container {
+      padding: 16px 16px 0 16px;
+    }
+
+    .header {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 24px;
+
+      p {
+        font-size: 16px;
+        font-weight: 700;
+        width: calc(100% - 32px);
+        margin: 0;
+        margin-inline-end: 16px;
+      }
+
+      .signatureModalCloseButton {
+        position: static;
+        height: 32px;
+        width: 32px;
+
+        &:hover {
+          background: var(--gray-2);
+          border-radius: 4px;
+        }
+
+        &.selected {
+          background: var(--view-header-button-active);
+          cursor: default;
+        }
+      }
+    }
+
+    .StylePopup {
+      border-radius: 0px;
+      box-shadow: none;
+    }
+
+    @extend %tab-panel;
+
+    .tab-panel {
+      overflow-y: auto;
+    }
+
+    .tab-list {
+      font-size: 14px; // hack for extra area in the tab list. 13px looks bad.
+
+      .tab-options-button {
+        @include button-reset;
+      }
+    }
+
+    @extend %tab-list;
+
+    .signature-style-options {
+      width: 90%;
+      display: flex;
+
+      .ColorPalette {
+        margin: 8px;
+        grid-template-columns: repeat(3, 1fr);
+        width: 100px;
+
+        :not(:last-child) {
+          margin-inline-end: 8px;
+        }
+
+        .cell-container {
+          width: 28px;
+          height: 28px;
+
+          @include tiny-browser-height {
+            width: 22px;
+            height: 22px;
+          }
+
+          .cell-outer {
+            .cell {
+              width: 16px;
+              height: 16px;
+
+              @include tiny-browser-height {
+                width: 14px;
+                height: 14px;
+              }
+            }
+          }
+
+          .cell-outer.active {
+            width: 28px;
+            height: 28px;
+
+            @include tiny-browser-height {
+              width: 22px;
+              height: 22px;
+            }
+          }
+        }
+      }
+    }
+
+    .signature-clear {
+      @include button-reset;
+      color: var(--secondary-button-text);
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: none;
+      height: 28px;
+      width: 63px;
+      margin: auto 8px;
+      font-size: 13px;
+
+      &:enabled:hover {
+        color: var(--secondary-button-hover);
+      }
+
+      &:disabled {
+        opacity: 0.5;
+      }
+    }
+
+    .footer {
+      display: flex;
+      padding: 16px;
+      align-items: center;
+      justify-content: flex-end;
+      width: 100%;
+      box-shadow: inset 0px 1px 0px var(--modal-stroke-and-border);
+      margin: 0;
+
+      .signature-create {
+        @include button-reset;
+        background: var(--primary-button);
+        border-radius: 4px;
+        padding: 0 8px;
+        height: 32px;
+        width: 72px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        color: var(--primary-button-text);
+        cursor: pointer;
+
+        @include mobile {
+          font-size: 13px;
+        }
+
+        &:enabled:hover {
+          background: var(--primary-button-hover);
+        }
+
+        &:disabled {
+          opacity: 0.5;
+          cursor: default;
+        }
+
+        &:focus-visible {
+          outline: var(--focus-visible-outline);
+        }
+      }
+    }
+
+    @include tab-border-defaults;
+  }
+
+  .colorpalette-clear-container {
+    display: flex;
+    height: 38px;
+    box-sizing: border-box;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+
+    .signature-style-options {
+      width: 90%;
+      display: flex;
+
+      .divider {
+        display: inline-block;
+        border-inline-start: 1px solid var(--modal-stroke-and-border);
+        margin: auto 8px auto 16px;
+        height: 16px;
+      }
+
+      .placeholder-dropdown {
+        width: 160px;
+        height: 31px;
+        margin: auto 0;
+      }
+
+      .Dropdown__wrapper {
+        width: 160px;
+        height: 31px;
+        margin: auto 0;
+        position: absolute;
+        margin-top: 8px;
+
+        .Dropdown {
+          width: 100% !important;
+          height: 100%;
+          text-align: start;
+        }
+
+        .picked-option-text {
+          margin-inline-end: -18px;
+          padding-inline-start: 2px;
+          font-size: 13px;
+        }
+
+        .arrow {
+          flex: unset;
+        }
+
+        .Dropdown__items {
+          inset-block-end: auto;
+          inset-block-start: 100%;
+          width: 100%;
+          inset-inline-start: 0;
+          inset-inline-end: auto;
+        }
+
+        .Dropdown__items button:nth-child(n) {
+          font-size: 15px;
+        }
+
+        .Dropdown__items button:nth-child(2) {
+          font-size: 13px;
+        }
+
+        .Dropdown__items button:nth-child(4) {
+          font-size: 18px;
+        }
+
+        .Dropdown__item {
+          display: block;
+          padding-inline-end: 16px;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+          text-align: start;
+        }
+      }
+    }
+  }
+
+  .footer-signature-clear {
+    @include button-reset;
+    color: var(--secondary-button-text);
+    display: flex;
+    flex: 0 0 0;
+    align-items: baseline;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    height: 28px;
+    width: 63px;
+    font-size: 13px;
+
+    &:enabled:hover {
+      color: var(--secondary-button-hover);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+    }
+
+    &:focus-visible {
+      outline: var(--focus-visible-outline);
+    }
+  }
+
+  .signature-input {
+    background: var(--signature-draw-background);
+    border: 1px solid var(--modal-stroke-and-border);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    width: 100%;
+    height: 200px;
+    border-radius: 4px;
+
+    &.full-signature {
+      flex: 1.5 0 0;
+    }
+
+    &.initials {
+      flex: 1 0 0;
+    }
+
+    @include small-browser-height {
+      height: 116px;
+    }
+
+    @include tiny-browser-height {
+      height: 86px;
+    }
+
+    &.image {
+      height: 244px;
+    }
+
+    &-footer {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+    }
+
+    .signature-prompt {
+      font-size: 10px;
+      color: var(--faded-text);
+      flex: 3 0 0;
+      text-align: center;
+    }
+  }
+
+  .signature-and-initials-container {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+  }
+}

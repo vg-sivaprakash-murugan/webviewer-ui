@@ -1,0 +1,3 @@
+import RedactionPanelContainerWithProvider from './RedactionPanelContainer';
+
+export default RedactionPanelContainerWithProvider;

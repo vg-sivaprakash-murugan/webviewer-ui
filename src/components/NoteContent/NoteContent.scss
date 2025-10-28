@@ -1,0 +1,217 @@
+@import '../../constants/styles';
+@import '../../constants/note';
+
+.NoteContent {
+  --note-content-right-padding-width: 12px;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  flex: 1;
+  color: var(--text-color);
+  padding-bottom: 12px;
+  pointer-events: none;
+
+  &.isReply {
+    padding-bottom: 0px;
+  }
+
+  &.unread {
+    &.isReply {
+      background: rgba($color: $pdftron-blue, $alpha: 0.08);
+    }
+
+    &.clicked {
+      .author-and-time {
+        span {
+          font-weight: normal;
+        }
+      }
+    }
+
+    .author-and-time {
+      span {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .container {
+    margin-top: 8px;
+    overflow: hidden;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    user-select: text;
+    cursor: text;
+    padding-inline-start: 52px;
+    padding-inline-end: var(--note-content-right-padding-width);
+
+    > * {
+      pointer-events: all;
+    }
+  }
+
+  .container-reply {
+    margin-top: 8px;
+    overflow: hidden;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    user-select: text;
+    cursor: text;
+  }
+
+  .edit-content {
+    margin-top: 7px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    flex: 1;
+    padding-inline-start: 52px;
+    padding-inline-end: 12px;
+    padding-bottom: 12px;
+    pointer-events: auto;
+
+    @include ie11 {
+      flex: none;
+    }
+
+    textarea {
+      width: 100%;
+      padding-inline-start: 8px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text-color);
+      padding-top: 4px;
+      padding-bottom: 4px;
+      resize: none;
+      overflow: hidden;
+      box-sizing: border-box;
+
+      &:focus {
+        outline: none;
+        border: 1px solid var(--focus-border);
+      }
+
+      &::placeholder {
+        color: var(--placeholder-text);
+      }
+    }
+
+    .edit-buttons {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      margin-top: 8px;
+
+      > div {
+        margin-inline-end: 4px;
+      }
+
+      .save-button {
+        @include button-reset;
+        cursor: pointer;
+        flex-shrink: 0;
+        background: var(--primary-button);
+        border-radius: 4px;
+        width: fit-content;
+        border: none;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        color: var(--primary-button-text);
+        padding: 0 13px;
+
+        @include mobile {
+          font-size: 13px;
+        }
+
+        &:hover {
+          background: var(--primary-button-hover);
+          color: var(--primary-button-text);
+        }
+
+        &.disabled {
+          background: var(--gray-6) !important;
+          border-color: var(--gray-6) !important;
+          cursor: not-allowed;
+
+          span {
+            color: var(--primary-button-text);
+          }
+        }
+      }
+
+      .cancel-button {
+        @include button-reset;
+        color: var(--secondary-button-text);
+        padding: 0 10px;
+        width: fit-content;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        margin-inline-end: 2px;
+
+        @include mobile {
+          font-size: 13px;
+        }
+
+        &:hover {
+          color: var(--secondary-button-hover);
+        }
+      }
+    }
+  }
+
+  .reply-content {
+    padding-inline-start: 0px;
+  }
+
+  .contents {
+    white-space: pre-wrap;
+    color: var(--text-color);
+    margin-inline-end: 5px;
+    padding: 0;
+    word-break: normal;
+    word-wrap: break-word;
+    user-select: text;
+
+    .highlight {
+      background: #fffc95;
+      color: #333333;
+    }
+  }
+
+  .highlight {
+    background: #fffc95;
+  }
+
+  .selected-text-preview {
+    padding-inline-start: 52px;
+    padding-top: 8px;
+    pointer-events: auto;
+  }
+
+  .reply-attachment-list {
+    margin-bottom: 8px;
+  }
+
+  &.modular-ui {
+    .highlight {
+      font-weight: 700;
+      color: var(--blue-5);
+      background: none;
+    }
+
+    .edit-content .edit-buttons .save-button {
+      &.disabled {
+        @extend %default-button-disabled;
+        border: none;
+      }
+    }
+  }
+}

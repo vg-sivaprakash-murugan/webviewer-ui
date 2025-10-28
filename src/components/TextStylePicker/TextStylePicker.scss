@@ -1,0 +1,135 @@
+@import '../../constants/styles.scss';
+
+// These are for the legacy popup.
+.Popup.StylePopup #FontSizeDropdown.Dropdown__wrapper {
+  width: 80px;
+
+  .Dropdown {
+    width: 80px !important;
+  }
+
+  .Dropdown__items {
+    width: 80px !important;
+  }
+}
+
+.container-fluid {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  gap: 8px;
+
+  .Dropdown__wrapper {
+    @include mobile {
+      width: 100%;
+    }
+  }
+
+  .Dropdown {
+    padding: 3px 4px;
+    text-align: start;
+
+    @include mobile {
+      width: 100% !important;
+      font-size: 13px;
+    }
+
+    .Icon {
+      width: 16px;
+      height: 16px;
+      flex: inherit;
+    }
+  }
+
+  .FontSizeDropdown {
+    @include mobile {
+      width: 100%;
+      padding: 0;
+    }
+  }
+
+  .container-dropdown {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .error-text {
+    font-size: var(--font-size-small);
+    color: var(--error-text-color);
+    text-align: center;
+  }
+}
+
+.icon-grid {
+  position: static;
+
+  @include mobile {
+    .row {
+      display: flex;
+    }
+
+    .rich-text-format {
+      float: inline-start;
+    }
+
+    .text-horizontal-alignment {
+      float: inline-end;
+
+      &.isRedaction {
+        float: inline-start;
+      }
+    }
+
+    .text-vertical-alignment {
+      float: inline-start;
+    }
+  }
+
+  @include tablet-and-desktop {
+    display: grid;
+
+    .row {
+      display: flex;
+    }
+  }
+
+  .row {
+    gap: 8px;
+    padding-top: 8px;
+    display: flex;
+
+    .Button {
+      // Important used to prevent popup styles from overriding it
+      background: none;
+      width: 34px !important;
+      height: 34px !important;
+      margin: 0 !important;
+
+      @include mobile {
+        width: 32px !important;
+        height: 32px !important;
+      }
+
+      .Icon {
+        height: 26px !important;
+        width: 26px !important;
+        color: var(--icon-color);
+
+        &:disabled,
+        &.disabled {
+          color: var(--disabled-icon);
+        }
+      }
+
+      &.active {
+        background: var(--popup-button-active);
+
+        .Icon {
+          color: var(--button-icon-color-active);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,134 @@
+@import '../../constants/styles';
+@import '../../constants/modal';
+@import '../../constants/tabs';
+
+.InsertPageModal {
+  @extend %modal;
+
+  .modal-container {
+    overflow-y: visible;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 480px;
+    padding: 0px;
+    border-radius: 4px;
+    background: var(--component-background);
+
+    @include mobile {
+      border-radius: 0;
+      width: 100%;
+    }
+
+    @include tiny-browser-height {
+      display: grid;
+      height: 100%;
+      position: fixed;
+      inset-block-start: 0;
+      grid-template-rows: 100px auto 70px;
+      justify-content: normal;
+    }
+
+    .tabs-header-container {
+      padding: 16px;
+    }
+
+    .header {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      width: 100%;
+
+      p {
+        font-size: 16px;
+        font-weight: 700;
+        width: 89.286%;
+        margin: 0;
+        margin-inline-end: 16px;
+      }
+
+      .insertPageModalCloseButton {
+        position: static;
+        height: 32px;
+        width: 32px;
+        border-radius: 4px;
+
+        &:hover {
+          background: var(--tools-button-hover);
+        }
+
+        &.selected {
+          background: var(--view-header-button-active);
+          cursor: default;
+        }
+      }
+    }
+
+    @extend %tab-panel;
+
+    .tab-panel {
+      overflow-y: visible;
+
+      .panel-container {
+        padding: 0px 16px 16px 16px;
+      }
+    }
+
+    .tab-panel .panel-body {
+      width: 100%;
+      height: 240px;
+      position: relative;
+      padding: 0px 16px 16px 16px;
+    }
+
+    .tab-list {
+      font-size: 14px; // hack for extra area in the tab list. 13px looks bad.
+
+      .tab-options-button {
+        @include button-reset;
+      }
+    }
+
+    @extend %tab-list;
+
+    .footer {
+      display: flex;
+      padding: 16px;
+      align-items: center;
+      justify-content: flex-end;
+      width: 100%;
+      box-shadow: inset 0px 1px 0px var(--modal-stroke-and-border);
+      margin: 0;
+
+      .Button.insertPageModalConfirmButton {
+        @include button-reset;
+        background: var(--primary-button);
+        border-radius: 4px;
+        padding: 0 8px;
+        height: 32px;
+        width: 92px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        color: var(--primary-button-text);
+        cursor: pointer;
+
+        @include mobile {
+          font-size: 13px;
+        }
+
+        &:enabled:hover {
+          @extend %default-button-hover;
+        }
+
+        &.disabled {
+          @extend %default-button-disabled;
+          border: none;
+        }
+      }
+    }
+
+    @include tab-border-defaults;
+  }
+}

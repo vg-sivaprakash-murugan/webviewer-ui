@@ -1,0 +1,31 @@
+.office-editor-create-table {
+  margin: 8px;
+  width: 120px;
+  height: 150px;
+  cursor: pointer;
+
+  table,
+  td {
+    border: 1px solid var(--gray-8);
+    border-collapse: collapse;
+  }
+
+  td {
+    width: 12px;
+    height: 12px;
+    padding: 0;
+
+    &.highlighted-cell {
+      background-color: var(--oe-table-dropdown-highlight);
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .create-table-rows-columns {
+    text-align: center;
+    margin: 10px 0;
+  }
+}

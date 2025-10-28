@@ -1,0 +1,21 @@
+@import '../../../constants/styles.scss';
+
+.LeftHeader {
+  height: 100%;
+  width: $left-header-width;
+  min-width: fit-content;
+  padding: 12px 8px;
+  position: relative;
+}
+
+.LeftHeader.closed {
+  position: fixed;
+  inset-inline-start: 0;
+  display: none;
+}
+
+.LeftHeader.stroke {
+  border-inline-end-width: 1px;
+  border-inline-end-style: solid;
+  border-inline-end-color: var(--gray-5);
+}

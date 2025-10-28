@@ -1,0 +1,126 @@
+@import '../../../constants/styles';
+@import '../../../constants/note';
+
+.comment-textarea {
+  position: relative;
+
+  .ql-toolbar {
+    display: none;
+  }
+
+  .ql-container {
+    border: none;
+
+    .ql-editor {
+      width: 100%;
+      padding: 4px 6px 4px 6px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text-color);
+      resize: none;
+      overflow: hidden;
+      box-sizing: border-box;
+
+      &:focus {
+        outline: none;
+        border: 1px solid var(--focus-border);
+      }
+
+      &.ql-blank::before {
+        inset-inline-start: 8px;
+        list-style-type: none;
+        font-style: normal;
+        color: var(--placeholder-text);
+      }
+
+      p {
+        margin: 0;
+        word-break: break-word;
+      }
+
+      ul > li::before {
+        content: none !important;
+      }
+    }
+
+    &.ql-snow {
+      border: none;
+
+      &:focus {
+        outline: var(--focus-visible-outline);
+        border-radius: 4px;
+      }
+    }
+  }
+
+  .add-attachment {
+    position: absolute;
+    inset-block-end: 2px;
+    inset-inline-end: 2px;
+    width: 24px;
+    height: 24px;
+
+    &:hover {
+      background-color: var(--blue-1);
+    }
+
+    .Icon {
+      padding: 3px;
+    }
+  }
+}
+
+.ql-editor ul > li::before {
+  content: none !important;
+}
+
+.mention {
+  &__element {
+    width: 170px;
+    z-index: 9001 !important;
+
+    max-height: 200px;
+    // include default overflow-y for browsers that don't support 'overlay' (ie. Firefox)
+    overflow-y: auto;
+    overflow-y: overlay;
+    overflow-x: hidden;
+    background-color: var(--component-background);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+  }
+
+  &__suggestions {
+    &__list {
+      width: 100%;
+      font-size: 14px;
+      margin-top: 0px;
+      padding-inline-start: 0px !important;
+      list-style: none;
+      word-wrap: break-word;
+      border-radius: 4px;
+    }
+
+    &__item {
+      background-color: var(--component-background);
+      white-space: nowrap;
+      margin-inline-start: 0px;
+      padding-inline-start: 0px;
+      text-overflow: clip;
+      padding: 7px 5px 1px 5px !important;
+      margin: 0px 0px;
+      width: 100%;
+      cursor: pointer;
+
+      .email {
+        margin-top: 2px;
+        font-size: 12px;
+        white-space: normal;
+        color: var(--faded-text);
+      }
+
+      &.selected {
+        background-color: var(--view-header-button-active) !important;
+      }
+    }
+  }
+}

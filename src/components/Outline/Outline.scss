@@ -1,0 +1,55 @@
+@import '../../constants/styles';
+
+.outline-drag-container {
+  border-radius: 4px;
+
+  &.isNesting {
+    & > .bookmark-outline-single-container {
+      background-color: var(--popup-button-active);
+      border-color: var(--focus-border);
+    }
+  }
+}
+
+.outline-treeview-toggle {
+  flex-grow: 0;
+  flex-shrink: 0;
+  margin-inline-end: var(--padding-small);
+  margin-top: 2px;
+  margin-bottom: 2px;
+  min-width: 14px; // Icon width 14px
+  transition: transform 0.1s ease;
+
+  &.expanded {
+    transform: rotate(90deg);
+  }
+
+  .Button {
+    width: auto;
+    height: auto;
+
+    .Icon {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+.outline-drag-line {
+  margin-inline-start: var(--padding);
+  margin-inline-end: var(--padding);
+  border-top: 1px solid var(--focus-border);
+  position: relative;
+
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    inset-block-start: -3px;
+    inset-inline-start: 0;
+    background-color: var(--focus-border);
+    border-radius: 50%;
+  }
+}

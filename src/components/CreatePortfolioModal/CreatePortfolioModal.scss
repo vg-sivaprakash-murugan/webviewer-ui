@@ -1,0 +1,138 @@
+@import '../../constants/styles';
+@import '../../constants/modal';
+@import '../../constants/tabs';
+
+.CreatePortfolioModal {
+  @extend %modal;
+
+  .content-container {
+    @extend %tab-list;
+    @extend %tab-panel;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 786px;
+    height: 604px;
+    padding: 0px;
+    border-radius: 4px;
+    overflow-y: visible;
+    background: var(--component-background);
+
+    @include mobile {
+      width: 100%;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      margin: 16px;
+      font-size: 16px;
+      font-weight: bold;
+      align-items: center;
+      height: 24px;
+
+      .Button {
+        height: 32px;
+        width: 32px;
+      }
+    }
+
+    .divider {
+      height: 1px;
+      width: 100%;
+      background: var(--divider);
+    }
+
+    .file-picker-container {
+      width: 100%;
+      height: 100%;
+      padding: 16px;
+    }
+
+    .footer {
+      display: flex;
+      padding: 16px;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      margin: 0;
+
+      .add-item-option {
+        visibility: hidden;
+        display: flex;
+        align-items: center;
+        position: relative;
+        @extend %tertiary-button-selected;
+
+        &:hover {
+          @extend %tertiary-button-hover;
+        }
+
+        &.show-popup {
+          color: var(--secondary-button-hover);
+
+          .add-item-icon {
+            color: var(--secondary-button-hover);
+          }
+
+          .Button .Icon {
+            color: var(--secondary-button-hover);
+          }
+        }
+
+        .add-item-icon {
+          color: var(--secondary-button-text);
+        }
+
+        .add-item-trigger {
+          width: 1px;
+          height: 1px;
+          visibility: hidden;
+          position: absolute;
+          inset-inline-start: 100px;
+          inset-block-start: 30px;
+        }
+      }
+
+      .create-portfolio {
+        @extend %default-button-selected;
+        min-width: 72px;
+
+        @include mobile {
+          font-size: 13px;
+        }
+
+        &:enabled:hover {
+          background: var(--primary-button-hover);
+        }
+
+        &:disabled {
+          @extend %default-button-disabled;
+        }
+      }
+    }
+
+    @include tab-border-defaults;
+  }
+
+  &.is-editing .content-container {
+    .header {
+      margin-bottom: 20px;
+    }
+
+    .footer {
+      .add-item-option {
+        visibility: visible;
+        min-width: 115px;
+        padding: 8px 16px;
+
+        .Icon {
+          width: 16px;
+          height: 16px;
+          margin-inline-end: 4px;
+        }
+      }
+    }
+  }
+}

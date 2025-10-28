@@ -1,0 +1,9 @@
+@import '../../constants/officeEditor.scss';
+
+.OfficeEditorMarginsModal {
+  @include oe-modal;
+
+  .unit-dropdown.Dropdown__wrapper {
+    width: calc(50% - 8px);
+  }
+}

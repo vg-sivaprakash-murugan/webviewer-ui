@@ -1,0 +1,79 @@
+@import '../../../constants/styles';
+@import '../../../constants/modal';
+
+.text-signature {
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+
+  canvas {
+    display: none;
+  }
+
+  &-input {
+    outline: none;
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--gray-6);
+    border-radius: 0;
+    text-align: center;
+    height: 85px;
+
+    @include small-browser-height {
+      font-size: 42px !important;
+      height: 50px;
+    }
+
+    @include tiny-browser-height {
+      font-size: 34px !important;
+    }
+  }
+
+  &-input:focus {
+    border: none;
+    border-bottom: 1px solid var(--gray-6);
+  }
+
+  &-inner-container {
+    position: absolute;
+    height: 100%;
+    min-width: 100%;
+  }
+
+  &-text {
+    display: flex;
+    align-items: center;
+    background: var(--signature-draw-background);
+    white-space: nowrap;
+    border-radius: 4px;
+    padding: 0 8px;
+    margin-top: 10px;
+    overflow-y: auto;
+    flex-grow: 1;
+    visibility: hidden;
+    position: fixed;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    .text-container {
+      margin: auto;
+      padding: 0 20px;
+    }
+  }
+
+  label {
+    margin-top: 60px;
+    width: 100%;
+  }
+
+  .Dropdown__items {
+    inset-block-start: unset !important;
+
+    [data-testid='sig-no-result'] {
+      font-size: 13px !important;
+    }
+  }
+}
