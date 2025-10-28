@@ -91,12 +91,12 @@ const DesktopPanel = ({ children }) => {
       })}
       data-element={dataElement}
       onDragOver={onDragOver}
-      style={{ marginTop: showWebViewerComponent && dataElement==='TABS' ? '50px' : '0px' }}
+      style={{ marginTop: showWebViewerComponent && dataElement === 'TABS' ? '50px' : '0px', height: '100%' }}
     >
-      {isCustom && isPanelOnRightSide && !isInDesktopOnlyMode && !isMobile &&
+      {/* {isCustom && isPanelOnRightSide && !isInDesktopOnlyMode && !isMobile &&
         <ResizeBar minWidth={panelMinWidth} dataElement={`${dataElement}ResizeBar`} onResize={onResize}
-          leftDirection={true} />}
-      <div className={`ModularPanel-container ${dataElement}`} style={style}>
+          leftDirection={true} />} */}
+      <div className={`ModularPanel-container ${dataElement}`} style={showWebViewerComponent ? { width: '350px', minWidth: '350px' } : style}>
         {!isInDesktopOnlyMode && isMobile && (
           <div className="close-container">
             <div
@@ -111,8 +111,8 @@ const DesktopPanel = ({ children }) => {
         )}
         {children}
       </div>
-      {isCustom && isPanelOnLeftSide && !isInDesktopOnlyMode && !isMobile &&
-        <ResizeBar minWidth={panelMinWidth} dataElement={`${dataElement}ResizeBar`} onResize={onResize} />}
+      {/* {isCustom && isPanelOnLeftSide && !isInDesktopOnlyMode && !isMobile &&
+        <ResizeBar minWidth={panelMinWidth} dataElement={`${dataElement}ResizeBar`} onResize={onResize} />} */}
     </div>
   );
 };

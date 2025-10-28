@@ -1,42 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
-// import ReactDOM from "react-dom";
 import WebViewer from "@pdftron/webviewer";
-// import rawTableData from "./extracted_with_headers_1.json";
-// import { createRoot } from "react-dom/client";
-// import EditIcon from "@mui/icons-material/Edit";
 import FieldModal from "./FieldModal";
 import SmartPagination from "./SmartPagination";
 import { useSelector, useDispatch } from 'react-redux';
 import selectors from 'selectors';
 import actions from 'actions';
 import core from 'core';
-import { getPdfJson } from '../../redux/selectors';
-// interface TableCell {
-//   Id: string;
-//   Header: string;
-//   X: number;
-//   Y: number;
-//   CellWidth: number;
-//   CellHeight: number;
-//   Fragments: { Text: string }[];
-// }
-
-// interface Table {
-//   Headers: TableCell[];
-//   Rows: TableCell[][];
-// }
-
-// interface TableJson {
-//   PageNumber: number;
-//   Tables: Table[];
-// }
 
 function normalizePages(rawPages) {
   return rawPages
-    // .filter((p: any) => p.properties.pageNumber !== 23)
     .map((p) => ({
       ...p,
-      // number: p.properties.pageNumber > 23 ? p.properties.pageNumber - 1 : p.properties.pageNumber,
       number: p.properties.pageNumber,
     }));
 }
@@ -84,7 +58,6 @@ const WebViewerComponent = () => {
   const rawTableData = useSelector(selectors.getPdfJson);
 
   const normalizedPages = normalizePages((rawTableData).pages);
-  // console.log("Normalized Pages:", normalizedPages);
 
   const tableData = normalizedPages.map((page, pageIndex) => {
     const tables = (page.elements ?? []).filter((el) => el.type === "table");
@@ -187,8 +160,8 @@ const WebViewerComponent = () => {
 
 
   useEffect(() => {
-    // if (!viewerDiv.current) return;
 
+    // Initialize WebViewer
     // WebViewer(
     //   {
     //     path: "/webviewer/lib", initialDoc: "/OQ_Agitator_10000.pdf", fullAPI: true, disabledElements: [
@@ -223,8 +196,6 @@ const WebViewerComponent = () => {
     setSelectedTypes(initialTypes);
   }, []);
 
-
-  // Update visible page range when batch changes
   useEffect(() => {
     const start = currentPageBatch * PAGE_LIMIT;
     const end = start + PAGE_LIMIT;
@@ -240,7 +211,7 @@ const WebViewerComponent = () => {
         setVisiblePageRange((prev) => {
           const newStart = prev.end;
           const newEnd = Math.min(newStart + PAGE_LIMIT, tables.length);
-          if (newStart >= tables.length) return prev; // already at end
+          if (newStart >= tables.length) return prev;
           return { start: newStart, end: newEnd };
         });
       }
@@ -256,16 +227,9 @@ const WebViewerComponent = () => {
     }
   }, [dropdownOptions]);
 
-  const isPageVisible = (pageIndex) =>
-    pageIndex >= visiblePageRange.start && pageIndex < visiblePageRange.end;
-
   const handleTypeChange = (key, value) => {
     setSelectedTypes((prev) => ({ ...prev, [key]: value }));
-
-    // if (!hasValue) {
-    // Reset button back to Add only if header is empty
     setAddedHeaders((prev) => ({ ...prev, [key]: false }));
-    // }
   };
 
   const handleFieldSave = (headerKey, options) => {
@@ -278,37 +242,37 @@ const WebViewerComponent = () => {
   const highlightTableBorder = (pageIndex, tableIndex) => {
     const documentViewer = core.getDocumentViewer();
     if (!documentViewer) return;
-  
+
     const annotationManager = documentViewer.getAnnotationManager();
     const Annotations = window.Core.Annotations;
-  
+
     if (!Annotations) {
       console.error("Annotations not available yet!");
       return;
     }
-  
+
     const existing = annotationManager
       .getAnnotationsList()
       .find(a => a.Subject === "TableBorder");
-  
+
     if (existing) {
       annotationManager.deleteAnnotation(existing, false, true);
       annotationManager.redrawAnnotation(existing);
     }
-  
+
     const pageData = tableData[pageIndex];
     const table = pageData?.Tables?.[tableIndex];
     const pageNumber = pageData?.PageNumber;
     if (!table || !pageNumber) return;
-  
+
     const allCells = [...(table.Headers || []), ...(table.Rows?.flat() || [])];
     if (allCells.length === 0) return;
-  
+
     const minX = Math.min(...allCells.map(c => c.X));
     const minY = Math.min(...allCells.map(c => c.Y));
     const maxX = Math.max(...allCells.map(c => c.X + c.CellWidth));
     const maxY = Math.max(...allCells.map(c => c.Y + c.CellHeight));
-  
+
     const rectAnnot = new Annotations.RectangleAnnotation({
       PageNumber: pageNumber,
       X: minX,
@@ -317,38 +281,36 @@ const WebViewerComponent = () => {
       Height: maxY - minY,
       Subject: "TableBorder",
     });
-  
-    rectAnnot.StrokeColor = new Annotations.Color(0, 122, 255);
-    rectAnnot.FillColor = new Annotations.Color(255, 255, 0, 0.15);
+
+    // color changes not applied
+    // rectAnnot.StrokeColor = new Annotations.Color(0, 122, 255);
+    // rectAnnot.FillColor = new Annotations.Color(255, 255, 0, 0.15);
     rectAnnot.StrokeThickness = 3;
     rectAnnot.ReadOnly = true;
     rectAnnot.Locked = true;
     rectAnnot.NoResize = true;
     rectAnnot.ShowMoveHandles = false;
     rectAnnot.ShowResizeHandles = false;
-  
+
     annotationManager.addAnnotation(rectAnnot);
     annotationManager.redrawAnnotation(rectAnnot);
-  
+
     try {
       annotationManager.bringToBack(rectAnnot);
     } catch (e) {
       console.warn("Could not send annotation to back:", e);
     }
   };
-  
-  
+
+
   const addFormToHeader = (pageIndex, tableIndex, header) => {
     // if (!annotManagerRef.current || !AnnotationsRef.current || !instanceRef.current) return;
 
     setActiveTable({ pageIndex, tableIndex });
-    // const annotationManager = annotManagerRef.current;
-    // const Annotations = AnnotationsRef.current;
-    // const instance = instanceRef.current;
 
     const documentViewer = core.getDocumentViewer();
     if (!documentViewer) return;
-  
+
     const annotationManager = documentViewer.getAnnotationManager();
     const Annotations = window.Core.Annotations;
 
@@ -369,7 +331,6 @@ const WebViewerComponent = () => {
       const cell = row.find((c) => c.Header.replace(/\s+/g, " ").trim() === header);
       if (!cell) return;
 
-      // Remove ALL existing annotations for this cell
       const allAnnots = annotationManager.getAnnotationsList();
       const headerFieldNames = [
         `field_${cell.Id}`,
@@ -381,7 +342,6 @@ const WebViewerComponent = () => {
       const fieldName = `field_${cell.Id}`;
       let field;
       let widgetAnnot;
-      let halfHeight;
 
       switch (selectedType) {
 
@@ -398,20 +358,10 @@ const WebViewerComponent = () => {
             options,
           });
 
-          // field = new Annotations.Forms.Field(fieldName, {
-          //   type: "Ch",
-          //   value: "N/A",
-          //   options: [
-          //     { value: "Yes", displayValue: "Yes" },
-          //     { value: "No", displayValue: "No" },
-          //     { value: "N/A", displayValue: "N/A" },
-          //   ],
-          // });
           widgetAnnot = new Annotations.ChoiceWidgetAnnotation(field);
           widgetAnnot.FillColor = new Annotations.Color(255, 200, 200);
           widgetAnnot.PageNumber = pageNumber;
           widgetAnnot.X = cell.X;
-          // widgetAnnot.Y = pageHeight - (cell.Y + cell.CellHeight);
           widgetAnnot.Y = cell.Y;
           widgetAnnot.Width = cell.CellWidth;
           widgetAnnot.Height = cell.CellHeight;
@@ -420,18 +370,15 @@ const WebViewerComponent = () => {
           annotationManager.getFieldManager().addField(field);
           annotationManager.addAnnotation(widgetAnnot);
           annotationManager.drawAnnotationsFromList([widgetAnnot]);
-          // ensure dropdown is on top of highlight
           try { annotationManager.bringToFront(widgetAnnot); } catch (e) { console.warn(e); }
 
           break;
         case "Checkbox": {
           const halfWidth = cell.CellWidth / 2;
-          // choose a compact checkbox size and keep it within the cell
           const size = Math.min(18, cell.CellHeight * 0.6, halfWidth * 0.6);
-          // vertically center inside the cell (uses same coordinate style as dropdowns)
           const y = cell.Y + (cell.CellHeight - size) / 2;
 
-          // Yes checkbox (left)
+          // Yes checkbox
           const fieldYes = new Annotations.Forms.Field(`${fieldName}_Yes`, { type: "Btn" });
           const checkboxYes = new Annotations.CheckButtonWidgetAnnotation(fieldYes, { optionName: "Yes" });
           checkboxYes.PageNumber = pageNumber;
@@ -442,7 +389,7 @@ const WebViewerComponent = () => {
           checkboxYes.StrokeColor = new Annotations.Color(0, 0, 0);
           checkboxYes.BorderStyle = { width: 1, style: "solid" };
 
-          // No checkbox (right)
+          // No checkbox
           const fieldNo = new Annotations.Forms.Field(`${fieldName}_No`, { type: "Btn" });
           const checkboxNo = new Annotations.CheckButtonWidgetAnnotation(fieldNo, { optionName: "No" });
           checkboxNo.PageNumber = pageNumber;
@@ -453,14 +400,12 @@ const WebViewerComponent = () => {
           checkboxNo.StrokeColor = new Annotations.Color(0, 0, 0);
           checkboxNo.BorderStyle = { width: 1, style: "solid" };
 
-          // Add
           annotationManager.getFieldManager().addField(fieldYes);
           annotationManager.getFieldManager().addField(fieldNo);
           annotationManager.addAnnotation(checkboxYes);
           annotationManager.addAnnotation(checkboxNo);
           annotationManager.drawAnnotationsFromList([checkboxYes, checkboxNo]);
 
-          // ensure checkboxes are on top of highlight
           try {
             annotationManager.bringToFront(checkboxYes);
             annotationManager.bringToFront(checkboxNo);
@@ -472,8 +417,6 @@ const WebViewerComponent = () => {
           const halfWidth = cell.CellWidth / 2;
           const size = Math.min(18, cell.CellHeight * 0.6, halfWidth * 0.6);
           const y = cell.Y + (cell.CellHeight - size) / 2;
-
-          // Single radio field (so only one option can be selected)
           field = new Annotations.Forms.Field(fieldName, { type: "Btn" });
 
           const radioYes = new Annotations.RadioButtonWidgetAnnotation(field, { optionName: "Yes" });
@@ -501,13 +444,11 @@ const WebViewerComponent = () => {
           break;
         }
 
-
         case "Textbox":
           field = new Annotations.Forms.Field(fieldName, { type: "Tx", value: "" });
           widgetAnnot = new Annotations.TextWidgetAnnotation(field);
           widgetAnnot.PageNumber = pageNumber;
           widgetAnnot.X = cell.X;
-          // widgetAnnot.Y = pageHeight - (cell.Y + cell.CellHeight);
           widgetAnnot.Y = cell.Y;
           widgetAnnot.Width = cell.CellWidth;
           widgetAnnot.Height = cell.CellHeight;
@@ -521,16 +462,11 @@ const WebViewerComponent = () => {
     });
   };
 
-  const visibleTables = tables.slice(pageOffset, pageOffset + PAGE_LIMIT);
-
   const scrollToTable = (pageIndex, tableIndex) => {
-    // const docViewer = instanceRef.current?.Core.documentViewer;
     const documentViewer = core.getDocumentViewer();
-    // if (!docViewer) return;
     if (!documentViewer) return;
     const pageNumber = tableData[pageIndex].PageNumber;
     if (pageNumber > 0 && pageNumber <= documentViewer.getPageCount()) {
-      // docViewer.setCurrentPage(pageNumber);
       core.setCurrentPage(pageNumber);
     }
     setActiveTable({ pageIndex, tableIndex });
@@ -552,7 +488,6 @@ const WebViewerComponent = () => {
           background: "#fafafa",
           display: "flex",
           flexDirection: "column",
-          // height: "100vh",
         }}
       >
         {isPanelOpen && (
@@ -571,7 +506,6 @@ const WebViewerComponent = () => {
               Table Headers
             </div>
 
-            {/* Scrollable section with tables */}
             <div
               style={{
                 flex: "1 1 auto",
@@ -581,72 +515,71 @@ const WebViewerComponent = () => {
             >
               {currentTables
                 .slice(pageOffset, pageOffset + PAGE_LIMIT)
-                .filter((t) => t.headers.length > 0 && t.rows.length > 0)
-                .map((t) => (
-                  <div
-                    key={`page${t.pageIndex}_table${t.tableIndex}`}
-                    style={{
-                      border: "2px solid",
-                      borderColor:
-                        activeTable?.pageIndex === t.pageIndex &&
-                          activeTable?.tableIndex === t.tableIndex
-                          ? "#1976d2"
-                          : "transparent",
-                      borderRadius: "6px",
-                      marginBottom: "10px",
-                      padding: "4px",
-                      background:
-                        activeTable?.pageIndex === t.pageIndex &&
-                          activeTable?.tableIndex === t.tableIndex
-                          ? "#e3f2fd"
-                          : "transparent",
-                    }}
-                  >
-                    <h4
-                      style={{
-                        cursor: "pointer",
-                        color: "#1976d2",
-                        textDecoration: "underline",
-                      }}
-                      onClick={() => scrollToTable(t.pageNumber - 1, t.tableIndex)}
-                    >
-                      Page {t.pageNumber} - Table {t.tableIndex + 1}
-                    </h4>
+                .map((t) => {
+                  const headersWithEmptyRows = t.headers.filter((header) => {
+                    const table = tableData[t.pageIndex].Tables[t.tableIndex];
+                    const hasValue = table.Rows.some((row) => {
+                      const cell = row.find(
+                        (c) => c.Header.replace(/\s+/g, " ").trim() === header
+                      );
+                      if (!cell) return false;
+                      const text = cell.Fragments.map((f) => f.Text.trim()).join("");
+                      return text.length > 0;
+                    });
+                    return !hasValue;
+                  });
 
-                    <table
+                  if (headersWithEmptyRows.length === 0) return null;
+
+                  return (
+                    <div
+                      key={`page${t.pageIndex}_table${t.tableIndex}`}
                       style={{
-                        width: "100%",
-                        borderCollapse: "collapse",
-                        fontSize: "14px",
+                        border: "2px solid",
+                        borderColor:
+                          activeTable?.pageIndex === t.pageIndex &&
+                            activeTable?.tableIndex === t.tableIndex
+                            ? "#1976d2"
+                            : "transparent",
+                        borderRadius: "6px",
                         marginBottom: "10px",
+                        padding: "4px",
+                        background:
+                          activeTable?.pageIndex === t.pageIndex &&
+                            activeTable?.tableIndex === t.tableIndex
+                            ? "#e3f2fd"
+                            : "transparent",
                       }}
                     >
-                      <thead>
-                        <tr style={{ background: "#f1f1f1", textAlign: "left" }}>
-                          <th style={{ padding: "8px 6px", borderBottom: "1px solid #ddd" }}>Header</th>
-                          <th style={{ padding: "8px 6px", borderBottom: "1px solid #ddd" }}>Form Type</th>
-                          <th style={{ padding: "8px 6px", borderBottom: "1px solid #ddd" }}>Action</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {t.headers
-                          .filter((header) => {
-                            const table = tableData[t.pageIndex].Tables[t.tableIndex];
-                            const hasValue = table.Rows.some((row) => {
-                              const cell = row.find(
-                                (c) => c.Header.replace(/\s+/g, " ").trim() === header
-                              );
-                              if (!cell) return false;
-                              const text = cell.Fragments.map((f) => f.Text.trim()).join("");
-                              return text.length > 0;
-                            });
-                            return !hasValue;
-                          })
-                          .map((header) => {
-                            const key = `page${t.pageIndex}_table${t.tableIndex}_header_${header}`;
-                            const table = tableData[t.pageIndex].Tables[t.tableIndex];
-                            const hasValue = false;
+                      <h4
+                        style={{
+                          cursor: "pointer",
+                          color: "#1976d2",
+                          textDecoration: "underline",
+                        }}
+                        onClick={() => scrollToTable(t.pageNumber - 1, t.tableIndex)}
+                      >
+                        Page {t.pageNumber} - Table {t.tableIndex + 1}
+                      </h4>
 
+                      <table
+                        style={{
+                          width: "100%",
+                          borderCollapse: "collapse",
+                          fontSize: "14px",
+                          marginBottom: "10px",
+                        }}
+                      >
+                        <thead>
+                          <tr style={{ background: "#f1f1f1", textAlign: "left" }}>
+                            <th style={{ padding: "8px 6px", borderBottom: "1px solid #ddd" }}>Header</th>
+                            <th style={{ padding: "8px 6px", borderBottom: "1px solid #ddd" }}>Form Type</th>
+                            <th style={{ padding: "8px 6px", borderBottom: "1px solid #ddd" }}>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {headersWithEmptyRows.map((header) => {
+                            const key = `page${t.pageIndex}_table${t.tableIndex}_header_${header}`;
                             return (
                               <tr key={key}>
                                 <td style={{ padding: "8px 6px", fontWeight: 500 }}>{header}</td>
@@ -674,17 +607,15 @@ const WebViewerComponent = () => {
                                     onClick={() => {
                                       const type = selectedTypes[key];
                                       if (!addedHeaders[key]) {
-                                        // Add
                                         scrollToTable(t.pageIndex, t.tableIndex);
                                         setAddedHeaders((prev) => ({ ...prev, [key]: true }));
                                         setActiveHeader(header);
                                         if (type === "Dropdown") setOpenModal(true);
                                         else addFormToHeader(t.pageIndex, t.tableIndex, header);
                                       } else {
-                                        // Edit
                                         handleEditForm(t.pageIndex, t.tableIndex, header);
                                         setActiveHeader(header);
-                                        setOpenModal(true);
+                                        if (type === "Dropdown") setOpenModal(true);
                                       }
                                     }}
                                     style={{
@@ -696,31 +627,27 @@ const WebViewerComponent = () => {
                                       cursor: "pointer",
                                     }}
                                   >
-                                    {addedHeaders[key] && selectedTypes[key] === "Dropdown" ? "Edit" : "Add"}
+                                    {addedHeaders[key] && selectedTypes[key] === "Dropdown"
+                                      ? "Edit"
+                                      : "Add"}
                                   </button>
                                 </td>
                               </tr>
                             );
                           })}
-                      </tbody>
-
-                    </table>
-                  </div>
-                ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  );
+                })}
             </div>
 
             <SmartPagination
               totalPages={totalBatches}
               currentPage={currentPageBatch + 1}
               onPageChange={(page) => {
-
-
-
                 setCurrentPageBatch(page - 1);
                 const startPage = pagesWithTables[(page - 1) * PAGE_LIMIT]?.pageNumber ?? 1;
-                //Newly added pagination code for apryse team to check
-                // dispatch(actions.setCurrentPage(startPage - 1));
-                // instanceRef.current.docViewer.setCurrentPage(startPage - 1);
                 core.setCurrentPage(startPage);
                 instanceRef.current?.Core.documentViewer.setCurrentPage(startPage);
               }}
@@ -737,7 +664,6 @@ const WebViewerComponent = () => {
         onSave={handleFieldSave}
         onClose={() => setOpenModal(false)}
       />
-
 
     </div>
   );

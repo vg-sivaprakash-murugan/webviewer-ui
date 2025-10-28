@@ -15,7 +15,6 @@ import { panelNames, panelData } from 'constants/panel';
 import DataElements from 'constants/dataElement';
 import { getPanelToRender, createCustomElement, getEnabledPanels } from 'helpers/tabPanelHelper';
 import { isMobileSize } from 'helpers/getDeviceSize';
-import WebViewerComponent from 'src/components/NgpComponent';
 
 const removeDuplicates = (array) => [...new Set(array)];
 
@@ -332,22 +331,11 @@ const TabPanel = ({ dataElement: tabPanelDataElement, redactionAnnotationsList }
     }
   };
 
-  const pdfJson = useSelector(selectors.getPdfJson); // or whatever holds your API result
+  const getActivePanelRender = () => {
+    const activePanel = panelsObject[selectedTab];
 
-const getActivePanelRender = () => {
-  const activePanel = panelsObject[selectedTab];
-
-  // If data available, show WebViewerComponent instead of other panel content
-  // if (pdfJson && Object.keys(pdfJson).length > 0) {
-  //   return (
-  //     <div className="webviewer-panel-container">
-  //       <WebViewerComponent />
-  //     </div>
-  //   );
-  // }
-
-  return activePanel?.render;
-};
+    return activePanel?.render;
+  };
 
 
   const closePanel = () => {
@@ -389,9 +377,6 @@ const getActivePanelRender = () => {
         </>
       )}
     </Measure>
-    {/* <div>
-      <WebViewerComponent></WebViewerComponent>
-    </div> */}
     {getActivePanelRender()}
   </>;
 

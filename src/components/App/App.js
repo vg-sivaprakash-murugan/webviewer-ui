@@ -85,7 +85,7 @@ import i18next from 'i18next';
 //My code 
 import initialState from 'src/redux/initialState';
 import rawTableData from '../../../assets/extracted.json';
-import WebViewerComponent from '../NgpComponent';
+import WebViewerComponent from '../WebViewer';
 
 // TODO: Use constants
 const tabletBreakpoint = window.matchMedia('(min-width: 641px) and (max-width: 900px)');
@@ -129,13 +129,6 @@ const App = ({ removeEventHandlers }) => {
 
   useWidgetHighlightingSync();
 
-  const pageNumber = useSelector(selectors.getCurrentPage);
-  const state = {
-    viewer: {
-      ...initialState.viewer,
-      shouldAddA11yContentToDOM: true,
-    },
-  };
   // useEffect(() => {
   //   if (initialState?.viewer?.uiConfiguration) {
   //     store.dispatch({
@@ -163,17 +156,6 @@ const App = ({ removeEventHandlers }) => {
               </svg>`,
         title: 'Save Annotations',
         onClick: function () {
-          const { annotationManager } = window.Core;
-          // annotationManager.enableReadOnlyMode();
-          // if (!showWebViewerComponent) {
-          //   // dispatch(actions.setShowWebViewerComponent(true));
-          //   dispatch(actions.closeElements(['TABS']));
-          //   setLocalShow(true);
-          // } else {
-          //   setLocalShow(false);
-          //   // dispatch(actions.setShowWebViewerComponent(false));
-          //   dispatch(actions.openElements(['TABS']));
-          // }
           const state = store.getState();
           const current = state.viewer.showWebViewerComponent;
           store.dispatch(actions.setShowWebViewerComponent(!current));
@@ -311,46 +293,43 @@ const App = ({ removeEventHandlers }) => {
       );
 
     async function loadInitialDocument() {
-      //Handle file upload and api call here
+
+      const fileResponse = await fetch(`${window.location.origin}/assets/OQ_Agitator_100.pdf`);
+      const blob = await fileResponse.blob();
+      const formData = new FormData();
+      formData.append('file', blob, 'OQ_Agitator_100.pdf');
+
       const response = await fetch('http://localhost:5000/api/sample/extract', {
-        method: 'GET', // or 'POST' if you need to send file info
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        method: 'POST',
+        body: formData,
       });
+
+      const data = await response.json();
+      console.log(data);
+
 
       if (!response.ok) {
         throw new Error(`API Error: ${response.status}`);
       }
+      // Update the code based on user upload
       let initialDoc = `${window.location.origin}/assets/OQ_Agitator_100.pdf`;
 
       let defaultFile = null;
       if (!initialDoc) {
         // defaultFile = getDefaultFile();
+        // Update the code based on user upload
         defaultFile = `${window.location.origin}/assets/OQ_Agitator_100.pdf`;
       }
 
-      // if (defaultFile) {
-      // loadDocument(dispatch, null, {
-      //   // filename: defaultFile,
-      //   filename:
-      //     isOfficeEditingEnabled: true,
-      // });
+      // Update the code based on user upload
       let fileUrl = `${window.location.origin}/assets/OQ_Agitator_100.pdf`
       loadDocument(dispatch, fileUrl, {
         filename: 'OQ_Agitator_100.pdf',
         isOfficeEditingEnabled: true,
       });
       //Based on the API response set this state
-      // const localJson = `${window.location.origin}/assets/extracted.json`;
-      const rawTableDatas = await response.json();
-      dispatch(actions.setPdfJson(rawTableDatas));
+      dispatch(actions.setPdfJson(data));
       dispatch(actions.setShowWebViewerComponent(true));
-      // setShowWebViewerComponent(true);
-
-
-      //   return;
-      // }
 
       const state = store.getState();
       const doesAutoLoad = getHashParameters('auto_load', true);
@@ -598,6 +577,7 @@ const App = ({ removeEventHandlers }) => {
           'is-web-component': window.isApryseWebViewerWebComponent,
         })} dir={direction}
       >
+        {/* Rendering our left panel */}
         <Panel dataElement="TABS" location="left" isCustom={true}>
           <div style={{ width: '100%', height: '100%' }}>
             {showWebViewerComponent && <WebViewerComponent />}

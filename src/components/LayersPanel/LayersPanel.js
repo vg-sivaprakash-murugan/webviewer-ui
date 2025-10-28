@@ -8,7 +8,7 @@ import Icon from 'components/Icon';
 import { useTranslation } from 'react-i18next';
 import { panelData, panelNames } from 'constants/panel';
 import Spinner from 'components/Spinner';
-import WebViewerComponent from '../NgpComponent';
+import WebViewerComponent from '../WebViewer';
 
 const propTypes = {
   layers: PropTypes.arrayOf(PropTypes.object),
